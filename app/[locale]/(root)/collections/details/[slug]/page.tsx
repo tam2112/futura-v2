@@ -3,6 +3,7 @@ import { getProductBySlug, getRelatedProducts } from '@/lib/actions/product.acti
 import { notFound } from 'next/navigation';
 import GoToTop from '@/components/GoToTop';
 
+// type
 interface CollectionsDetailsPageProps {
     params: Promise<{
         slug: string;
