@@ -3,8 +3,16 @@ import { getProductBySlug, getRelatedProducts } from '@/lib/actions/product.acti
 import { notFound } from 'next/navigation';
 import GoToTop from '@/components/GoToTop';
 
-export default async function CollectionsDetailsPage({ params }: any) {
-    const product = await getProductBySlug(params.slug);
+interface CollectionsDetailsPageProps {
+    params: Promise<{
+        slug: string;
+    }>;
+}
+
+export default async function CollectionsDetailsPage({ params }: CollectionsDetailsPageProps) {
+    const { slug } = await params;
+
+    const product = await getProductBySlug(slug);
     if (!product || !product.category) {
         notFound();
     }
