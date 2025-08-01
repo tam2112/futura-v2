@@ -16,9 +16,13 @@ import { deleteSelectedTypes } from '@/components/admin/DeleteSelectedButton';
 import { getTranslations } from 'next-intl/server';
 import ReloadButton from '@/components/admin/ReloadButton';
 
+type PageProps = {
+    searchParams: { [key: string]: string | undefined };
+};
+
 type TypeList = Type;
 
-export default async function TypeListPage({ searchParams }: { searchParams: { [key: string]: string | undefined } }) {
+export default async function TypeListPage({ searchParams }: PageProps) {
     const t = await getTranslations('TypeList');
     const categorySortOptions = [
         { value: 'name-asc', label: 'A-Z' },

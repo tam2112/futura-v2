@@ -16,13 +16,13 @@ import FilterTechnicalDropdown from '@/components/admin/FilterTechnicalDropdown'
 import { getTranslations } from 'next-intl/server';
 import ReloadButton from '@/components/admin/ReloadButton';
 
+type PageProps = {
+    searchParams: { [key: string]: string | undefined };
+};
+
 type ConnectivityList = Connectivity;
 
-export default async function ConnectivityListPage({
-    searchParams,
-}: {
-    searchParams: { [key: string]: string | undefined };
-}) {
+export default async function ConnectivityListPage({ searchParams }: PageProps) {
     const t = await getTranslations('ConnectivityList');
     const categorySortOptions = [
         { value: 'name-asc', label: 'A-Z' },

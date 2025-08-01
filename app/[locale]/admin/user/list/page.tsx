@@ -16,9 +16,13 @@ import { deleteSelectedUsers } from '@/components/admin/DeleteSelectedButton';
 import { getTranslations } from 'next-intl/server';
 import ReloadButton from '@/components/admin/ReloadButton';
 
+type PageProps = {
+    searchParams: { [key: string]: string | undefined };
+};
+
 type UserList = User & { role: Role };
 
-export default async function UserListPage({ searchParams }: { searchParams: { [key: string]: string | undefined } }) {
+export default async function UserListPage({ searchParams }: PageProps) {
     const t = await getTranslations('UserList');
 
     const userSortOptions = [

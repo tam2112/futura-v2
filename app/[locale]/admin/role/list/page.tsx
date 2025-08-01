@@ -16,9 +16,13 @@ import { deleteSelectedRoles } from '@/components/admin/DeleteSelectedButton';
 import { getTranslations } from 'next-intl/server';
 import ReloadButton from '@/components/admin/ReloadButton';
 
+type PageProps = {
+    searchParams: { [key: string]: string | undefined };
+};
+
 type RoleList = Role;
 
-export default async function RoleListPage({ searchParams }: { searchParams: { [key: string]: string | undefined } }) {
+export default async function RoleListPage({ searchParams }: PageProps) {
     const roleSortOptions = [
         { value: 'name-asc', label: 'A-Z' },
         { value: 'name-desc', label: 'Z-A' },

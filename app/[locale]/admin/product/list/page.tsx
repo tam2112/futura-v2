@@ -18,13 +18,13 @@ import { twMerge } from 'tailwind-merge';
 import { getTranslations } from 'next-intl/server';
 import ReloadButton from '@/components/admin/ReloadButton';
 
+type PageProps = {
+    searchParams: { [key: string]: string | undefined };
+};
+
 type ProductList = Product & { images: { url: string }[] } & { category: Category } & { status: Status };
 
-export default async function ProductListPage({
-    searchParams,
-}: {
-    searchParams: { [key: string]: string | undefined };
-}) {
+export default async function ProductListPage({ searchParams }: PageProps) {
     const t = await getTranslations('ProductListAdmin');
 
     const productSortOptions = [

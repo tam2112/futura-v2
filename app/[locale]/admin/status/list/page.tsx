@@ -16,13 +16,13 @@ import FilterDropdown from '@/components/admin/FilterDropdown';
 import { getTranslations } from 'next-intl/server';
 import ReloadButton from '@/components/admin/ReloadButton';
 
+type PageProps = {
+    searchParams: { [key: string]: string | undefined };
+};
+
 type StatusList = Status;
 
-export default async function StatusListPage({
-    searchParams,
-}: {
-    searchParams: { [key: string]: string | undefined };
-}) {
+export default async function StatusListPage({ searchParams }: PageProps) {
     const t = await getTranslations('StatusList');
 
     const statusSortOptions = [

@@ -16,13 +16,13 @@ import { deleteSelectedBatteryHealths } from '@/components/admin/DeleteSelectedB
 import { getTranslations } from 'next-intl/server';
 import ReloadButton from '@/components/admin/ReloadButton';
 
+type PageProps = {
+    searchParams: { [key: string]: string | undefined };
+};
+
 type BatteryHealthList = BatteryHealth;
 
-export default async function BatteryHealthListPage({
-    searchParams,
-}: {
-    searchParams: { [key: string]: string | undefined };
-}) {
+export default async function BatteryHealthListPage({ searchParams }: PageProps) {
     const t = await getTranslations('BatteryHealthList');
     const categorySortOptions = [
         { value: 'name-asc', label: 'A-Z' },

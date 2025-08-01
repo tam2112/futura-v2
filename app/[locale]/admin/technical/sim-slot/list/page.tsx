@@ -16,13 +16,13 @@ import FilterTechnicalDropdown from '@/components/admin/FilterTechnicalDropdown'
 import { getTranslations } from 'next-intl/server';
 import ReloadButton from '@/components/admin/ReloadButton';
 
+type PageProps = {
+    searchParams: { [key: string]: string | undefined };
+};
+
 type SimSlotList = SimSlot;
 
-export default async function SimSlotListPage({
-    searchParams,
-}: {
-    searchParams: { [key: string]: string | undefined };
-}) {
+export default async function SimSlotListPage({ searchParams }: PageProps) {
     const t = await getTranslations('SimSlotList');
     const categorySortOptions = [
         { value: 'name-asc', label: 'A-Z' },

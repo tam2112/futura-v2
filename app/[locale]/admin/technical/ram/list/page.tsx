@@ -16,9 +16,13 @@ import { deleteSelectedRams } from '@/components/admin/DeleteSelectedButton';
 import { getTranslations } from 'next-intl/server';
 import ReloadButton from '@/components/admin/ReloadButton';
 
+type PageProps = {
+    searchParams: { [key: string]: string | undefined };
+};
+
 type RamList = Ram;
 
-export default async function RamListPage({ searchParams }: { searchParams: { [key: string]: string | undefined } }) {
+export default async function RamListPage({ searchParams }: PageProps) {
     const t = await getTranslations('RamList');
     const categorySortOptions = [
         { value: 'name-asc', label: 'A-Z' },

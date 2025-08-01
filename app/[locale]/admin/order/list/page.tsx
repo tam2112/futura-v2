@@ -14,11 +14,15 @@ import { twMerge } from 'tailwind-merge';
 import ReloadButton from '@/components/admin/ReloadButton';
 import { getTranslations } from 'next-intl/server';
 
+type PageProps = {
+    searchParams: { [key: string]: string | undefined };
+};
+
 type OrderList = Order & { product: Product & { images: { url: string }[] } } & { status: Status } & {
     deliveryInfo: Delivery;
 } & { user: User };
 
-export default async function OrderListPage({ searchParams }: { searchParams: { [key: string]: string | undefined } }) {
+export default async function OrderListPage({ searchParams }: PageProps) {
     const t = await getTranslations('OrderList');
 
     const orderSortOptions = [

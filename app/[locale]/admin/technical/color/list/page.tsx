@@ -16,9 +16,13 @@ import FilterTechnicalDropdown from '@/components/admin/FilterTechnicalDropdown'
 import { getTranslations } from 'next-intl/server';
 import ReloadButton from '@/components/admin/ReloadButton';
 
+type PageProps = {
+    searchParams: { [key: string]: string | undefined };
+};
+
 type ColorList = Color;
 
-export default async function ColorListPage({ searchParams }: { searchParams: { [key: string]: string | undefined } }) {
+export default async function ColorListPage({ searchParams }: PageProps) {
     const t = await getTranslations('ColorList');
 
     const categorySortOptions = [

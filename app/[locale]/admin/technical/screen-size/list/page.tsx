@@ -16,13 +16,13 @@ import { deleteSelectedScreenSizes } from '@/components/admin/DeleteSelectedButt
 import { getTranslations } from 'next-intl/server';
 import ReloadButton from '@/components/admin/ReloadButton';
 
+type PageProps = {
+    searchParams: { [key: string]: string | undefined };
+};
+
 type ScreenSizeList = ScreenSize;
 
-export default async function ScreenSizeListPage({
-    searchParams,
-}: {
-    searchParams: { [key: string]: string | undefined };
-}) {
+export default async function ScreenSizeListPage({ searchParams }: PageProps) {
     const t = await getTranslations('ScreenSizeList');
     const categorySortOptions = [
         { value: 'name-asc', label: 'A-Z' },

@@ -17,13 +17,13 @@ import { getTranslations } from 'next-intl/server';
 import ReloadButton from '@/components/admin/ReloadButton';
 import { Category, Prisma } from '@/prisma/app/generated/prisma';
 
+type PageProps = {
+    searchParams: { [key: string]: string | undefined };
+};
+
 type CategoryList = Category & { images: { url: string }[] };
 
-export default async function CategoryListPage({
-    searchParams,
-}: {
-    searchParams: { [key: string]: string | undefined };
-}) {
+export default async function CategoryListPage({ searchParams }: PageProps) {
     const t = await getTranslations('CategoryList');
 
     const categorySortOptions = [

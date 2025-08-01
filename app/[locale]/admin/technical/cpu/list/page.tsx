@@ -16,9 +16,13 @@ import { deleteSelectedCpus } from '@/components/admin/DeleteSelectedButton';
 import { getTranslations } from 'next-intl/server';
 import ReloadButton from '@/components/admin/ReloadButton';
 
+type PageProps = {
+    searchParams: { [key: string]: string | undefined };
+};
+
 type CpuList = Cpu;
 
-export default async function CpuListPage({ searchParams }: { searchParams: { [key: string]: string | undefined } }) {
+export default async function CpuListPage({ searchParams }: PageProps) {
     const t = await getTranslations('CpuList');
     const categorySortOptions = [
         { value: 'name-asc', label: 'A-Z' },

@@ -18,6 +18,10 @@ import { twMerge } from 'tailwind-merge';
 import ReloadButton from '@/components/admin/ReloadButton';
 // import '@/lib/server';
 
+type PageProps = {
+    searchParams: { [key: string]: string | undefined };
+};
+
 type PromotionList = Promotion & {
     categories: { name: string }[];
     products: { name: string }[];
@@ -39,11 +43,7 @@ const formatRemainingTime = (seconds: number): string => {
     return `${days}d ${hours}h ${minutes}m ${secs}s`;
 };
 
-export default async function PromotionListPage({
-    searchParams,
-}: {
-    searchParams: { [key: string]: string | undefined };
-}) {
+export default async function PromotionListPage({ searchParams }: PageProps) {
     const t = await getTranslations('PromotionList');
 
     const promotionSortOptions = [
