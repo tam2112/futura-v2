@@ -15,7 +15,7 @@ import ReloadButton from '@/components/admin/ReloadButton';
 import { getTranslations } from 'next-intl/server';
 
 type PageProps = {
-    searchParams: { [key: string]: string | undefined };
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 type OrderList = Order & { product: Product & { images: { url: string }[] } } & { status: Status } & {
@@ -30,8 +30,8 @@ export default async function OrderListPage({ searchParams }: PageProps) {
         { value: 'date-asc', label: t('oldRelease') },
     ];
 
-    const { page, sort, ...queryParams } = searchParams;
-    const p = page ? parseInt(page) : 1;
+    const { page, sort, ...queryParams } = await searchParams;
+    const p = page ? parseInt(page as string) : 1;
 
     const currentSort = sort || 'date-desc';
 
@@ -41,7 +41,7 @@ export default async function OrderListPage({ searchParams }: PageProps) {
             if (value !== undefined) {
                 switch (key) {
                     case 'search':
-                        if (query.user) {
+                        if (query.user && typeof value === 'string') {
                             query.user.fullName = { contains: value, mode: 'insensitive' };
                         }
                         break;
@@ -52,7 +52,8 @@ export default async function OrderListPage({ searchParams }: PageProps) {
         }
     }
 
-    const sortValues = currentSort.split(',').filter((value) => value);
+    const sortString = Array.isArray(currentSort) ? currentSort.join(',') : currentSort;
+    const sortValues = sortString.split(',').filter((value) => value);
     const orderBy: Prisma.OrderOrderByWithRelationInput[] = sortValues.map((sortValue) => {
         switch (sortValue.trim()) {
             case 'date-asc':

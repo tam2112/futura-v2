@@ -14,7 +14,7 @@ type SortOption = {
 };
 
 type FilterDropdownProps = {
-    currentSort: string; // Comma-separated string, e.g., "name-asc,date-desc"
+    currentSort: string | string[]; // Comma-separated string, e.g., "name-asc,date-desc"
     sortOptions: SortOption[];
     entityName?: string;
 };
@@ -31,7 +31,8 @@ export default function FilterTechnicalDropdown({
     const [isLoading, setIsLoading] = useState(false);
     const [selectedOptions, setSelectedOptions] = useState<SortOption[]>(() => {
         // Initialize from currentSort
-        const sortValues = currentSort ? currentSort.split(',') : ['date-desc'];
+        const sortString = Array.isArray(currentSort) ? currentSort.join(',') : currentSort;
+        const sortValues = sortString ? sortString.split(',') : ['date-desc'];
         return sortValues
             .map((value) => sortOptions.find((option) => option.value === value))
             .filter((option): option is SortOption => !!option);

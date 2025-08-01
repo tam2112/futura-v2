@@ -17,7 +17,7 @@ import { getTranslations } from 'next-intl/server';
 import ReloadButton from '@/components/admin/ReloadButton';
 
 type PageProps = {
-    searchParams: { [key: string]: string | undefined };
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 type ScreenSizeList = ScreenSize;
@@ -30,8 +30,8 @@ export default async function ScreenSizeListPage({ searchParams }: PageProps) {
         { value: 'date-desc', label: t('latestRelease') },
         { value: 'date-asc', label: t('oldRelease') },
     ];
-    const { page, sort, ...queryParams } = searchParams;
-    const p = page ? parseInt(page) : 1;
+    const { page, sort, ...queryParams } = await searchParams;
+    const p = page ? parseInt(page as string) : 1;
 
     const currentSort = sort || 'date-desc';
 
@@ -41,7 +41,9 @@ export default async function ScreenSizeListPage({ searchParams }: PageProps) {
             if (value !== undefined) {
                 switch (key) {
                     case 'search':
-                        query.name = { contains: value, mode: 'insensitive' };
+                        if (typeof value === 'string') {
+                            query.name = { contains: value, mode: 'insensitive' };
+                        }
                         break;
                     default:
                         break;
@@ -50,7 +52,8 @@ export default async function ScreenSizeListPage({ searchParams }: PageProps) {
         }
     }
 
-    const sortValues = currentSort.split(',').filter((value) => value);
+    const sortString = Array.isArray(currentSort) ? currentSort.join(',') : currentSort;
+    const sortValues = sortString.split(',').filter((value) => value);
     const orderBy: Prisma.ScreenSizeOrderByWithRelationInput[] = sortValues.map((sortValue) => {
         switch (sortValue.trim()) {
             case 'name-asc':
