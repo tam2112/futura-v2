@@ -3,13 +3,7 @@ import { getProductBySlug, getRelatedProducts } from '@/lib/actions/product.acti
 import { notFound } from 'next/navigation';
 import GoToTop from '@/components/GoToTop';
 
-type PageProps = {
-    params: {
-        slug: string;
-    };
-};
-
-export default async function CollectionsDetailsPage({ params }: PageProps) {
+export default async function CollectionsDetailsPage({ params }: any) {
     const product = await getProductBySlug(params.slug);
     if (!product || !product.category) {
         notFound();
