@@ -3,7 +3,6 @@
 import { Dispatch, SetStateAction } from 'react';
 import { HiOutlineXMark } from 'react-icons/hi2';
 import LanguageSelect from '../LanguageSelect';
-import DarkModeSwitch from '../DarkModeSwitch';
 import { useTranslations } from 'next-intl';
 import { useRouter } from '@/i18n/navigation';
 import { useAuth } from '@/context/AuthContext';

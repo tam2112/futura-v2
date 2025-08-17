@@ -1,7 +1,6 @@
 'use client';
 
 import Button from '@/components/Button';
-import DarkModeSwitch from '@/components/DarkModeSwitch';
 import { HiBars3 } from 'react-icons/hi2';
 import Fire from '@/components/Fire';
 import LanguageSelect from '@/components/LanguageSelect';

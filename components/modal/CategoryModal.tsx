@@ -19,7 +19,6 @@ import { debounce } from 'lodash';
 import Loader from '../Loader';
 import { useMediaQuery } from 'react-responsive';
 import LanguageSelect from '../LanguageSelect';
-import DarkModeSwitch from '../DarkModeSwitch';
 
 type CategoryModalType = {
     isOpen: boolean;
