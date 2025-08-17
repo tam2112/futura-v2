@@ -316,9 +316,9 @@ export default function CategoryModal({ isOpen, setIsOpen }: CategoryModalType) 
                                 {/* languages */}
                                 <LanguageSelect />
                                 {/* dark mode */}
-                                <div className="border border-black/10 p-2 px-3 relative rounded-lg">
+                                {/* <div className="border border-black/10 p-2 px-3 relative rounded-lg">
                                     <DarkModeSwitch />
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                         {/* Settings */}
@@ -377,13 +377,17 @@ export default function CategoryModal({ isOpen, setIsOpen }: CategoryModalType) 
                                 </ul>
                             ) : (
                                 <ul className="flex items-center justify-center gap-4">
-                                    <li className="relative">
-                                        <Button variant="text" className="after:left-0">
-                                            {t('signUp')}
-                                        </Button>
+                                    <li>
+                                        <Link href={'/sign-up'} className="relative">
+                                            <Button variant="text" className="after:left-0">
+                                                {t('signUp')}
+                                            </Button>
+                                        </Link>
                                     </li>
                                     <li>
-                                        <Button>{t('signIn')}</Button>
+                                        <Link href={'/sign-in'}>
+                                            <Button>{t('signIn')}</Button>
+                                        </Link>
                                     </li>
                                 </ul>
                             )}

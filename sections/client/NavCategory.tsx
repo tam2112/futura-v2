@@ -66,9 +66,9 @@ export default function NavCategory() {
                         {/* languages */}
                         <LanguageSelect />
                         {/* dark mode */}
-                        <div className="border border-black/10 p-2 px-3 relative rounded-lg">
+                        {/* <div className="border border-black/10 p-2 px-3 relative rounded-lg">
                             <DarkModeSwitch />
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

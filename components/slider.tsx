@@ -29,7 +29,7 @@ const DualRangeSlider = React.forwardRef<React.ElementRef<typeof SliderPrimitive
                 {...props}
                 onValueChange={handleValueChange}
             >
-                <SliderPrimitive.Track className="relative h-2 w-full grow overflow-hidden rounded-full dark:bg-gray-800 bg-gray-300">
+                <SliderPrimitive.Track className="relative h-2 w-full grow overflow-hidden rounded-full bg-gray-300">
                     <SliderPrimitive.Range className="absolute h-full bg-sky-400" />
                 </SliderPrimitive.Track>
                 <>

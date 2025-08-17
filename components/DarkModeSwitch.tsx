@@ -34,7 +34,7 @@ export default function DarkModeSwitch() {
                 onChange={handleThemeChange}
                 checked={theme === 'dark'}
             />
-            <div className="theme-switch__container border border-black dark:border-white">
+            <div className="theme-switch__container border border-black">
                 <div className="theme-switch__clouds"></div>
                 <div className="theme-switch__stars-container">
                     <svg fill="none" viewBox="0 0 144 55" xmlns="http://www.w3.org/2000/svg">

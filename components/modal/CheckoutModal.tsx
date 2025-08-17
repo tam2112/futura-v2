@@ -103,15 +103,7 @@ export default function CheckoutModal({ isOpen, setIsOpen, cartTotal }: Checkout
         }
     }, [isOpen, modalAnimate, modalScope]);
 
-    const handleOrderNow = async () => {
-        const deliveryData = deliveryForm.getValues();
-        const isValid = await deliveryForm.trigger();
-        if (!isValid) {
-            toast.error(t('fillAllOrderRequired'));
-            console.log(deliveryData);
-            return;
-        }
-
+    const handleOrderNow = async (deliveryData: DeliveryInfoSchema) => {
         const userId = await getUserIdFromCookie();
         if (!userId) {
             toast.error(t('logInPlaceOrder'));
@@ -130,22 +122,11 @@ export default function CheckoutModal({ isOpen, setIsOpen, cartTotal }: Checkout
     };
 
     const handlePayNow = async () => {
-        const isValid = await deliveryForm.trigger();
-        if (!isValid) {
-            toast.error(t('fillAllOrderRequired'));
-            return;
-        }
         setIsStep1Complete(true);
         setStep(2);
     };
 
     const handlePay = paymentForm.handleSubmit(async () => {
-        const isValid = await paymentForm.trigger();
-        if (!isValid) {
-            toast.error(t('fillAllPayRequired'));
-            return;
-        }
-
         const deliveryData = deliveryForm.getValues();
         const userId = await getUserIdFromCookie();
         if (!userId) {
@@ -165,11 +146,6 @@ export default function CheckoutModal({ isOpen, setIsOpen, cartTotal }: Checkout
     });
 
     const handleMoveToStep2 = async () => {
-        const isValid = await deliveryForm.trigger();
-        if (!isValid) {
-            toast.error(t('fillAllOrderRequired'));
-            return;
-        }
         setStep(2);
     };
 
@@ -360,13 +336,13 @@ export default function CheckoutModal({ isOpen, setIsOpen, cartTotal }: Checkout
                                     {!isStep1Complete && (
                                         <div className="mt-4 space-y-2">
                                             <button
-                                                onClick={handleOrderNow}
+                                                onClick={deliveryForm.handleSubmit(handleOrderNow)}
                                                 className="w-full py-2 bg-gradient-light text-black rounded font-semibold"
                                             >
                                                 {t('orderNow')}
                                             </button>
                                             <button
-                                                onClick={handlePayNow}
+                                                onClick={deliveryForm.handleSubmit(handlePayNow)}
                                                 className="w-full py-2 border-gradient text-black rounded font-semibold"
                                             >
                                                 {t('payNow')}
@@ -376,7 +352,7 @@ export default function CheckoutModal({ isOpen, setIsOpen, cartTotal }: Checkout
                                     {isStep1Complete && (
                                         <div className="mt-4">
                                             <button
-                                                onClick={handleMoveToStep2}
+                                                onClick={deliveryForm.handleSubmit(handleMoveToStep2)}
                                                 className="w-full py-2 bg-gradient-light text-black rounded font-semibold"
                                             >
                                                 {t('moveToStep2')}

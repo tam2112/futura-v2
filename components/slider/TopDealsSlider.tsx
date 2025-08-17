@@ -80,11 +80,11 @@ export default function TopDealsSlider() {
                                     <h3 className="text-sm xl:line-clamp-4 md:line-clamp-3 line-clamp-2">{name}</h3>
                                     <div className="flex items-center gap-2">
                                         {/* Original price (strikethrough) */}
-                                        <h4 className="mt-5 text-sm line-through font-light dark:text-white">
+                                        <h4 className="mt-5 text-sm line-through font-light">
                                             {formatPrice(price, locale)}
                                         </h4>
                                         {/* Discounted price */}
-                                        <h4 className="mt-5 text-sm font-extrabold dark:text-white">
+                                        <h4 className="mt-5 text-sm font-extrabold">
                                             {formatPrice(priceWithDiscount ?? price, locale)}
                                         </h4>
                                     </div>

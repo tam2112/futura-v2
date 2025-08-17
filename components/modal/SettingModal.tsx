@@ -38,10 +38,10 @@ export default function SettingModal({
                             <h3>{t('languages')}:</h3>
                             <LanguageSelect />
                         </div>
-                        <div className="flex justify-between items-center">
+                        {/* <div className="flex justify-between items-center">
                             <h3>{t('theme')}:</h3>
                             <DarkModeSwitch />
-                        </div>
+                        </div> */}
                     </div>
                     <hr className="my-6" />
                     <div

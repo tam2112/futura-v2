@@ -51,7 +51,7 @@ export default function DeviceSlider({ data }: DeviceSliderProps) {
                     <SwiperSlide key={id}>
                         <Link
                             href={href}
-                            className="flex min-h-[306px] w-full flex-col items-center justify-center rounded-xl border border-gray-300 bg-white dark:bg-dark dark:border-white/60 group/device-popular transition-all duration-300"
+                            className="flex min-h-[306px] w-full flex-col items-center justify-center rounded-xl border border-gray-300 bg-white group/device-popular transition-all duration-300"
                         >
                             <div className="block w-full px-2 py-4 xs:px-3 sm:py-5">
                                 <div className="relative pb-[75%]">
@@ -78,9 +78,7 @@ export default function DeviceSlider({ data }: DeviceSliderProps) {
                                 <h3 className="two-line-ellipsis text-center font-heading text-xs font-bold text-gray-700 xxs:text-sm">
                                     {title}
                                 </h3>
-                                <div className="text-center text-xs text-gray-700 dark:text-white/80">
-                                    {formatPrice(price, locale)}
-                                </div>
+                                <div className="text-center text-xs text-gray-700">{formatPrice(price, locale)}</div>
                             </div>
                         </Link>
                     </SwiperSlide>
