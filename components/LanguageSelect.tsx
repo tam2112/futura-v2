@@ -8,6 +8,7 @@ import englishFlag from '@/public/united-kingdom.png';
 import { usePathname, useRouter } from '@/i18n/navigation';
 import Button from './Button';
 import { useLocale, useTranslations } from 'next-intl';
+import { useState } from 'react';
 
 export default function LanguageSelect() {
     const t = useTranslations('LanguageSelect');
@@ -15,14 +16,20 @@ export default function LanguageSelect() {
     const router = useRouter();
     const currentLocale = useLocale();
     const currentPath = usePathname();
+    const [isOpen, setIsOpen] = useState(false);
 
     const handleChangeLocale = (locale: string) => {
         router.replace(currentPath, { locale });
+        setIsOpen(false);
+    };
+
+    const toggleDropdown = () => {
+        setIsOpen(!isOpen);
     };
 
     return (
         <div className="border border-black/10 p-2 px-6 relative rounded-lg group">
-            <div className="text-center flex items-center">
+            <div className="text-center flex items-center" onClick={toggleDropdown}>
                 <CiGlobe size={20} />
                 <Connect />
                 <span>
@@ -33,7 +40,11 @@ export default function LanguageSelect() {
                     />
                 </span>
             </div>
-            <div className="absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 left-0 top-[40px] w-full shadow-sm z-10">
+            <div
+                className={`absolute left-0 top-[40px] w-full shadow-sm z-10 transition-all duration-300
+                    ${isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'} 
+                    lg:group-hover:opacity-100 lg:group-hover:visible`}
+            >
                 <div className="w-full bg-white border border-black/10 rounded-lg">
                     <div className="flex flex-col items-start font-normal px-4 py-2">
                         <div>

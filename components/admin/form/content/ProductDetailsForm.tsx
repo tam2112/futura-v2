@@ -219,7 +219,7 @@ export default function ProductDetailsForm({
                     )}
                 </div>
             )}
-            <button type="button" onClick={() => setOpen(false)} className="bg-gray-200 p-2 rounded-md">
+            <button type="button" onClick={() => setOpen(false)} className="bg-gray-200 p-2 rounded-md cursor-pointer">
                 {t('close')}
             </button>
         </div>

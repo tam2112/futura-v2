@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 
 import checkOutlineImg from '@/public/official-store/check-outline.svg?url';
@@ -18,7 +20,7 @@ export default function DevicesBrand({ data }: DevicesBrandProps) {
     const t = useTranslations('OfficialStores');
 
     return (
-        <div className="hidden lg:grid lg:grid-cols-2 lg:grid-rows-2 lg:gap-2">
+        <div className="grid sm:grid-cols-2 grid-cols-1 grid-rows-2 lg:gap-2">
             {data.map(({ id, title, price, img, href }) => (
                 <Link href={href} key={id}>
                     <div className="relative flex h-full w-full flex-col justify-start rounded-md border border-gray-200 bg-white px-3 py-2 lg:py-0 group/official-store">
@@ -44,7 +46,7 @@ export default function DevicesBrand({ data }: DevicesBrandProps) {
                             </div>
                             <div className="mt-2 flex flex-1 flex-col justify-between text-left text-sm">
                                 <div>
-                                    <h2 className="two-line-ellipsis text-sm">{title}</h2>
+                                    <h2 className="text-sm line-clamp-2">{title}</h2>
                                 </div>
                                 <div className="mt-2 flex items-center justify-between lg:mb-1">
                                     <div className="text-sm font-extrabold">${price.toFixed(2)}</div>

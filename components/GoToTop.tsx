@@ -4,8 +4,9 @@ import { GoChevronUp } from 'react-icons/go';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { animateScroll as scroll } from 'react-scroll';
+import { twMerge } from 'tailwind-merge';
 
-export default function GoToTop() {
+export default function GoToTop({ className }: { className?: string }) {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
@@ -31,7 +32,7 @@ export default function GoToTop() {
     };
 
     return (
-        <div className="fixed bottom-8 right-8 z-[9999]">
+        <div className={twMerge('fixed bottom-8 right-8 z-[9999]', className)}>
             <motion.button
                 onClick={scrollToTop}
                 className="size-11 flex items-center justify-center rounded-full bg-gradient-light shadow-lg hover:opacity-90 transition-opacity duration-300"

@@ -88,7 +88,7 @@ export default function TypeForm({
                 )}
             </div>
 
-            <button className="bg-gradient-light p-2 rounded-md">
+            <button className="bg-gradient-light p-2 rounded-md cursor-pointer">
                 {type === 'create' ? t('create') : t('update')}
             </button>
         </form>

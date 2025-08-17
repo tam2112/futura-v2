@@ -13,7 +13,7 @@ export default async function CollectionsListPage({ params }: CollectionsListPag
     const products = await getProductsByCategorySlug(slug);
 
     return (
-        <div className="pt-8 pb-16 mt-[140px]">
+        <div className="pt-8 pb-16 sm:mt-[140px] mt-[60px]">
             <ProductList initialProducts={products} />
         </div>
     );

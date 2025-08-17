@@ -19,6 +19,7 @@ import { toast } from 'react-toastify';
 import { useAuth } from '@/context/AuthContext';
 import { toggleFavourite } from '@/lib/actions/product.action';
 import Cookies from 'js-cookie';
+import { AnimatePresence, motion } from 'framer-motion';
 
 type Product = {
     id: string;
@@ -79,7 +80,7 @@ export default function ProductDetails({ product, relatedProducts }: ProductDeta
 
         if (response.success) {
             setIsFavourite(response.isFavourite ?? false);
-            toast.success(response.message);
+            toast(response.message);
         } else {
             toast.error(response.message);
         }
@@ -131,10 +132,34 @@ export default function ProductDetails({ product, relatedProducts }: ProductDeta
         { key: 'Type', title: t('type'), value: product.type?.name, display: product.type?.name },
     ].filter((tech) => tech.value); // Chỉ hiển thị technical có dữ liệu
 
+    // Animation variants for Framer Motion
+    const imageVariants = {
+        initial: {
+            opacity: 0,
+            x: 20, // Slide in from the right
+        },
+        animate: {
+            opacity: 1,
+            x: 0,
+            transition: {
+                opacity: { duration: 0.3 },
+                x: { duration: 0.3, ease: 'easeOut' },
+            },
+        },
+        exit: {
+            opacity: 0,
+            x: -20, // Slide out to the left
+            transition: {
+                opacity: { duration: 0.3 },
+                x: { duration: 0.3, ease: 'easeIn' },
+            },
+        },
+    };
+
     return (
         <>
             <div className="bg-white pt-5 lg:pt-6">
-                <div className="container">
+                <div className="px-[2rem]">
                     {/* Breadcrumb */}
                     <div className="items-center gap-1 text-xs mb-2 hidden lg:flex">
                         {breadcrumbs.map(({ id, title, href }, index) => (
@@ -154,10 +179,10 @@ export default function ProductDetails({ product, relatedProducts }: ProductDeta
                         ))}
                     </div>
                     {/* Product */}
-                    <div className="flex flex-col items-start lg:flex-row lg:gap-4">
+                    <div className="flex flex-col items-start xl:flex-row xl:gap-4">
                         {/* Image Section */}
-                        <section className="w-full select-none rounded-md transition-all duration-200 ease-in-out lg:sticky lg:w-1/2 lg:top-[9rem]">
-                            <div className="rounded-md border-gray-200 px-5 sm:px-8 lg:border lg:p-4">
+                        <section className="w-full select-none rounded-md transition-all duration-200 ease-in-out xl:sticky xl:w-1/2 xl:top-[9rem]">
+                            <div className="rounded-md border-gray-200 lg:border lg:p-4">
                                 {/* Heading */}
                                 <div className="flex flex-wrap items-center justify-between lg:mb-10">
                                     {/* Mobile Breadcrumb */}
@@ -179,7 +204,7 @@ export default function ProductDetails({ product, relatedProducts }: ProductDeta
                                             </span>
                                             <span
                                                 className={twMerge(
-                                                    'text-xs p-2 rounded-lg',
+                                                    'text-xs p-2 rounded-lg text-white',
                                                     product.status?.name === 'In stock' ? 'bg-teal-400' : 'bg-rose-400',
                                                 )}
                                             >
@@ -209,15 +234,15 @@ export default function ProductDetails({ product, relatedProducts }: ProductDeta
                                     </div>
                                 </div>
                                 {/* Image Body */}
-                                <div className="hidden lg:block">
+                                <div className="block mt-8 sm:mt-0">
                                     <div className="flex items-center">
                                         {/* Image Selection */}
-                                        <div className="hidden flex-col items-center lg:flex">
+                                        <div className="flex-col items-center flex">
                                             <div className="hide-scrollbar flex flex-col gap-3 overflow-y-auto max-h-[300px]">
                                                 {product.images.map((image, index) => (
                                                     <button
                                                         key={index}
-                                                        className={`rounded-md border p-1.5 transition duration-150 ease-in-out ${
+                                                        className={`rounded-md border p-1.5 transition duration-150 ease-in-out cursor-pointer ${
                                                             selectedImage === image.url
                                                                 ? 'border-gray-700'
                                                                 : 'border-gray-500 opacity-50 hover:opacity-100'
@@ -239,20 +264,31 @@ export default function ProductDetails({ product, relatedProducts }: ProductDeta
                                         </div>
                                         {/* Image Selected */}
                                         <div className="relative mx-auto mb-3 flex h-48 w-48 items-center justify-center xs:mb-2 sm:h-72 sm:w-72 lg:mb-0 xl:h-80 xl:w-80">
-                                            <Image
-                                                src={selectedImage}
-                                                alt={product.name}
-                                                width={300}
-                                                height={300}
-                                                className="h-full min-h-full w-full min-w-full object-contain"
-                                            />
+                                            <AnimatePresence mode="wait">
+                                                <motion.div
+                                                    key={selectedImage}
+                                                    variants={imageVariants as any}
+                                                    initial="initial"
+                                                    animate="animate"
+                                                    exit="exit"
+                                                    style={{ position: 'absolute', width: '100%', height: '100%' }}
+                                                >
+                                                    <Image
+                                                        src={selectedImage}
+                                                        alt={product.name}
+                                                        width={300}
+                                                        height={300}
+                                                        className="h-full min-h-full w-full min-w-full object-contain"
+                                                    />
+                                                </motion.div>
+                                            </AnimatePresence>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </section>
                         {/* Content Section */}
-                        <section className="relative w-full px-5 py-2 sm:px-8 lg:w-1/2 lg:p-0">
+                        <section className="relative w-full xl:px-8 px-0 py-2 xl:w-1/2 xl:p-0">
                             <div className="relative z-20 mx-auto mt-1 w-full rounded bg-white px-0 sm:mt-2 lg:mt-0 lg:rounded-none lg:p-0">
                                 <div className="mb-4 rounded-md border-gray-200 p-0 lg:border lg:p-4">
                                     <div className="flex items-center gap-3 lg:items-start">
@@ -293,11 +329,11 @@ export default function ProductDetails({ product, relatedProducts }: ProductDeta
                                             </div>
                                         )}
                                     </div>
-                                    <div className="hidden w-full items-center gap-3 lg:flex">
+                                    <div className="w-full items-center gap-3 flex">
                                         <div className="grid flex-1 grid-cols-1 gap-1.5 py-0.5">
                                             <button
                                                 onClick={() => handleAddToCart(product.id)}
-                                                className="sm:text-base font-bold p-0 h-11 sm:h-auto text-sm xs:text-base sm:p-3 my-1 rounded-md duration-200 ease-in-out hover:opacity-90 disabled:opacity-70 bg-gradient-light hover:shadow-lg"
+                                                className="sm:text-base font-bold p-0 h-11 sm:h-auto text-sm xs:text-base sm:p-3 my-1 rounded-md duration-200 ease-in-out hover:opacity-90 disabled:opacity-70 bg-gradient-light hover:shadow-lg cursor-pointer"
                                             >
                                                 {t('addToCart')}
                                             </button>
@@ -305,7 +341,7 @@ export default function ProductDetails({ product, relatedProducts }: ProductDeta
                                         <div className="w-[118px]">
                                             <button
                                                 onClick={handleToggleFavourite}
-                                                className="group flex h-[48px] w-full shrink-0 cursor-pointer items-center gap-1.5 rounded-md border border-gray-200 px-3 leading-3 flex-col justify-center lg:flex-row lg:justify-start"
+                                                className="group flex h-[48px] w-full shrink-0 cursor-pointer items-center gap-1.5 rounded-md border border-gray-200 px-3 leading-3 xl:flex-row flex-col justify-center"
                                             >
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -322,13 +358,13 @@ export default function ProductDetails({ product, relatedProducts }: ProductDeta
                                                 >
                                                     <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                                                 </svg>
-                                                <div className="-mt-1 text-center text-[10px] lg:mt-0">
+                                                <div className="-mt-1 text-center text-[10px] lg:mt-0 hidden xl:block">
                                                     <span className="mr-0.5">{t('addToList')}</span>
                                                 </div>
                                             </button>
                                         </div>
                                     </div>
-                                    <div className="mt-3 hidden lg:block">
+                                    <div className="mt-3">
                                         {/* Technical */}
                                         {technicals.map(({ key, title, display }) => (
                                             <div key={key} className="mb-4">
@@ -390,9 +426,14 @@ export default function ProductDetails({ product, relatedProducts }: ProductDeta
                     <>
                         <Swiper
                             modules={[Navigation]}
-                            slidesPerView={4}
+                            breakpoints={{
+                                320: { slidesPerView: 1, slidesPerGroup: 1 },
+                                640: { slidesPerView: 2, slidesPerGroup: 1 },
+                                768: { slidesPerView: 3, slidesPerGroup: 1 },
+                                1024: { slidesPerView: 4, slidesPerGroup: 2 },
+                                1280: { slidesPerView: 5, slidesPerGroup: 2 },
+                            }}
                             spaceBetween={20}
-                            slidesPerGroup={4}
                             speed={700}
                             onSwiper={(swiper) => {
                                 swiperRef.current = swiper;
@@ -402,7 +443,7 @@ export default function ProductDetails({ product, relatedProducts }: ProductDeta
                             {relatedProducts.map((relatedProduct) => (
                                 <SwiperSlide key={relatedProduct.id}>
                                     <Link href={`/collections/details/${relatedProduct.slug}`}>
-                                        <div className="flex h-full w-full flex-col items-center justify-center rounded-xl border bg-white hover:shadow-md transition-shadow duration-300">
+                                        <div className="flex xl:min-h-[340px] min-h-[300px] w-full flex-col items-center justify-center rounded-xl border border-gray-400 bg-white hover:shadow-md transition-shadow duration-300">
                                             <div className="block w-full px-2 py-4 xs:px-3 sm:py-5">
                                                 <div className="relative pb-[75%]">
                                                     <div className="absolute left-0 top-1/2 h-3/4 w-full -translate-y-1/2">
@@ -428,7 +469,6 @@ export default function ProductDetails({ product, relatedProducts }: ProductDeta
                                 </SwiperSlide>
                             ))}
                         </Swiper>
-                        <DeviceSliderBtn swiperRef={swiperRef} />
                     </>
                 </div>
             </div>

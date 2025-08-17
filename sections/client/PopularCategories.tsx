@@ -5,7 +5,6 @@ import { useCategoryStore } from '@/store/categoryStore';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useEffect } from 'react';
-import categoryTest from '@/public/popular-category/computers.webp';
 
 export default function PopularCategories() {
     const t = useTranslations('PopularCategories');
@@ -19,18 +18,17 @@ export default function PopularCategories() {
 
     return (
         <div className="py-8 pb-16">
-            <div className="container">
-                <h2 className="text-xl font-heading font-bold">{t('title')}</h2>
+            <div className="px-[2rem]">
+                <h2 className="sm:text-xl text-lg font-heading font-bold">{t('title')}</h2>
                 <div>
-                    <div className="mt-6 gap-x-5 gap-y-8 md:grid md:grid-cols-5 lg:grid-cols-7">
+                    <div className="mt-6 gap-x-5 gap-y-8 grid md:grid-cols-5 lg:grid-cols-7 sm:grid-cols-4 grid-cols-3">
                         {popularCategories.map((cat) => (
                             <Link href={`/collections/list/${cat.slug}`} key={cat.id}>
                                 <div className="flex flex-col items-center group cursor-pointer">
                                     <div className="relative flex size-16 items-center justify-center rounded-full bg-gradient-light lg:size-24 xl:size-28">
                                         <div className="absolute top-0 size-full">
                                             <Image
-                                                // src={cat.images[0].url}
-                                                src={categoryTest}
+                                                src={cat.images[0].url}
                                                 alt={cat.name}
                                                 width={300}
                                                 height={300}

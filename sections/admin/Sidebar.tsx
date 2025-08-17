@@ -114,8 +114,8 @@ export default function Sidebar() {
                                     }`}
                                 >
                                     <ul className="space-y-1 py-2">
-                                        {technicalLinks.map(({ name, path }, index) => (
-                                            <li key={index}>
+                                        {technicalLinks.map(({ name, path }) => (
+                                            <li key={name}>
                                                 <Link
                                                     href={path}
                                                     className={twMerge(

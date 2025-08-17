@@ -97,10 +97,10 @@ export default async function ProductListPage({ searchParams }: PageProps) {
     const columns = [
         { header: <CheckboxHeader itemIds={data.map((item: any) => item.id)} />, accessor: 'check' },
         { header: t('image'), accessor: 'img' },
-        { header: t('name'), accessor: 'name', className: 'hidden md:table-cell' },
-        { header: t('description'), accessor: 'description', className: 'hidden md:table-cell' },
-        { header: t('category'), accessor: 'category', className: 'hidden md:table-cell' },
-        { header: t('status'), accessor: 'status', className: 'hidden md:table-cell' },
+        { header: t('name'), accessor: 'name', className: '' },
+        { header: t('description'), accessor: 'description', className: '' },
+        { header: t('category'), accessor: 'category', className: '' },
+        { header: t('status'), accessor: 'status', className: '' },
     ];
 
     const renderRow = (item: ProductList) => (
@@ -108,7 +108,7 @@ export default async function ProductListPage({ searchParams }: PageProps) {
             <td>
                 <Checkbox id={item.id} />
             </td>
-            <td className="hidden md:table-cell py-2">
+            <td className="sm:py-2 py-3">
                 <Image
                     src={item.images.length > 0 ? item.images[0].url : '/device-test-02.png'}
                     alt=""
@@ -117,14 +117,14 @@ export default async function ProductListPage({ searchParams }: PageProps) {
                     className="md:hidden xl:block size-10 object-cover"
                 />
             </td>
-            <td className="hidden md:table-cell py-2 max-w-[80px]">
+            <td className="sm:py-2 py-3 max-w-[80px]">
                 <span className="line-clamp-2 pr-2">{item.name}</span>
             </td>
-            <td className="hidden md:table-cell max-w-[100px] py-2">
+            <td className="max-w-[100px] sm:py-2 py-3">
                 <span className="line-clamp-2 pr-2">{item.description || '-'}</span>
             </td>
-            <td className="hidden md:table-cell py-2">{item.category.name}</td>
-            <td className="hidden md:table-cell py-2">
+            <td className="sm:py-2 py-3">{item.category.name}</td>
+            <td className="sm:py-2 py-3">
                 <span
                     className={twMerge(
                         'p-1 px-2 rounded-lg',
@@ -134,7 +134,7 @@ export default async function ProductListPage({ searchParams }: PageProps) {
                     {t(`${item.status.name}`)}
                 </span>
             </td>
-            <td className="py-2">
+            <td className="sm:py-2 py-3">
                 <div className="flex items-center gap-2">
                     <FormContainer table="product" type="details" data={item} />
                     <FormContainer table="product" type="update" data={item} />
@@ -146,13 +146,13 @@ export default async function ProductListPage({ searchParams }: PageProps) {
 
     return (
         <>
-            <GoToTop />
-            <div className="bg-white p-4 rounded-md flex-1 m-4 mt-0">
-                <div className="flex items-center justify-between">
-                    <h1 className="hidden md:block text-lg font-semibold">{t('allProducts')}</h1>
-                    <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
+            <GoToTop className="sm:bottom-8 bottom-32" />
+            <div className="bg-white p-4 rounded-md flex-1 mt-0">
+                <div className="flex items-center lg:justify-between justify-start">
+                    <h1 className="hidden lg:block text-lg font-semibold">{t('allProducts')}</h1>
+                    <div className="flex flex-col lg:flex-row lg:items-center gap-4 w-full md:w-auto">
                         <TableSearch />
-                        <div className="flex items-center gap-4 self-end">
+                        <div className="flex flex-wrap items-center gap-4 lg:self-end">
                             {/* Filter Dropdown */}
                             <FilterDropdown
                                 currentSort={currentSort}
@@ -161,11 +161,11 @@ export default async function ProductListPage({ searchParams }: PageProps) {
                             />
                             <ExportButton exportAction={exportProducts} entityName={t('product')} />
                             <ReloadButton />
-                            <FormContainer table="product" type="create" />
                             <DeleteSelectedButtonClient
                                 deleteAction={deleteSelectedProducts}
                                 entityName={t('product')}
                             />
+                            <FormContainer table="product" type="create" />
                         </div>
                     </div>
                 </div>

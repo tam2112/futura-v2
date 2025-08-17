@@ -91,8 +91,8 @@ export default async function CategoryListPage({ searchParams }: PageProps) {
     const columns = [
         { header: <CheckboxHeader itemIds={data.map((item: CategoryList) => item.id)} />, accessor: 'check' },
         { header: t('image'), accessor: 'img' },
-        { header: t('name'), accessor: 'name', className: 'hidden md:table-cell' },
-        { header: t('description'), accessor: 'description', className: 'hidden md:table-cell' },
+        { header: t('name'), accessor: 'name', className: '' },
+        { header: t('description'), accessor: 'description', className: '' },
     ];
 
     const renderRow = (item: CategoryList) => (
@@ -100,7 +100,7 @@ export default async function CategoryListPage({ searchParams }: PageProps) {
             <td>
                 <Checkbox id={item.id} />
             </td>
-            <td className="hidden md:table-cell py-2">
+            <td className="py-2">
                 <Image
                     src={item.images.length > 0 ? item.images[0].url : '/device-test-02.png'}
                     alt=""
@@ -109,8 +109,8 @@ export default async function CategoryListPage({ searchParams }: PageProps) {
                     className="md:hidden xl:block size-10 object-cover"
                 />
             </td>
-            <td className="hidden md:table-cell py-2">{item.name}</td>
-            <td className="hidden md:table-cell max-w-[100px] py-2">
+            <td className="py-2">{item.name}</td>
+            <td className="max-w-[100px] py-2">
                 <span className="line-clamp-2">{item.description || '-'}</span>
             </td>
             <td className="py-2">
@@ -124,13 +124,13 @@ export default async function CategoryListPage({ searchParams }: PageProps) {
 
     return (
         <>
-            <GoToTop />
-            <div className="bg-white p-4 rounded-md flex-1 m-4 mt-0">
-                <div className="flex items-center justify-between">
-                    <h1 className="hidden md:block text-lg font-semibold">{t('allCategories')}</h1>
-                    <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
+            <GoToTop className="sm:bottom-8 bottom-32" />
+            <div className="bg-white p-4 rounded-md flex-1 mt-0">
+                <div className="flex items-center lg:justify-between justify-start">
+                    <h1 className="hidden lg:block text-lg font-semibold">{t('allCategories')}</h1>
+                    <div className="flex flex-col lg:flex-row lg:items-center gap-4 w-full md:w-auto">
                         <TableSearch />
-                        <div className="flex items-center gap-4 self-end">
+                        <div className="flex flex-wrap items-center gap-4 lg:self-end">
                             {/* Filter Dropdown */}
                             <FilterDropdown
                                 currentSort={currentSort}
@@ -139,11 +139,11 @@ export default async function CategoryListPage({ searchParams }: PageProps) {
                             />
                             <ExportButton exportAction={exportCategories} entityName={t('category')} />
                             <ReloadButton />
-                            <FormContainer table="category" type="create" />
                             <DeleteSelectedButtonClient
                                 deleteAction={deleteSelectedCategories}
                                 entityName={t('category')}
                             />
+                            <FormContainer table="category" type="create" />
                         </div>
                     </div>
                 </div>

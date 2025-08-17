@@ -66,7 +66,7 @@ export default function CartModal({ isOpenCart, setIsOpenCart }: CartModalType) 
                 )}
                 ref={cartScope}
             >
-                <div className="w-[375px] h-full">
+                <div className="sm:w-[375px] w-screen h-full">
                     {/* cart heading */}
                     <div className="sticky bg-white z-50 top-0 left-0 right-0">
                         <div className="flex items-center justify-between border-b border-gray-200">
@@ -112,7 +112,7 @@ export default function CartModal({ isOpenCart, setIsOpenCart }: CartModalType) 
                             <div className="flex flex-col gap-y-3">
                                 <button
                                     onClick={() => setIsCheckoutOpen(true)}
-                                    className="py-2 bg-gradient font-semibold text-white flex justify-center rounded-md disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed"
+                                    className="py-2 bg-gradient font-semibold text-white flex justify-center rounded-md cursor-pointer disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed"
                                     disabled={cart.length === 0}
                                 >
                                     {t('checkout')}

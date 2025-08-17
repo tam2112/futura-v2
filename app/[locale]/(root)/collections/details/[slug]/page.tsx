@@ -21,7 +21,7 @@ export default async function CollectionsDetailsPage({ params }: CollectionsDeta
     return (
         <>
             <GoToTop />
-            <div className="pt-8 pb-16 mt-[140px]">
+            <div className="pt-8 pb-16 sm:mt-[140px] mt-[60px]">
                 <ProductDetails product={product} relatedProducts={relatedProducts} />
             </div>
         </>

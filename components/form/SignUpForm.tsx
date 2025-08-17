@@ -81,11 +81,11 @@ export default function SignUpForm() {
     }, [state, router, currentLocale]);
 
     return (
-        <div className="px-16 py-10 min-h-[500px] overflow-hidden">
-            <div className="grid grid-cols-2 h-[540px] bg-white relative rounded-lg">
+        <div className="sm:px-16 px-8 py-10 min-h-[500px] overflow-hidden">
+            <div className="grid xl:grid-cols-2 grid-cols-1 h-[540px] bg-white relative rounded-lg">
                 <div className="absolute w-full top-2 bottom-0 bg-gradient-light blur-md -z-10"></div>
                 {/* image */}
-                <div className="flex flex-col justify-center items-center h-full overflow-hidden rounded-lg">
+                <div className="xl:flex hidden flex-col justify-center items-center h-full overflow-hidden rounded-lg">
                     <Image src={heroImg} alt="hero img" className="scale-[1.5] rounded-lg" />
                 </div>
                 {/* form */}
@@ -129,7 +129,7 @@ export default function SignUpForm() {
                         </div>
                         <div className="space-y-3 mt-6">
                             <div>
-                                <button className="bg-gradient-light w-full py-2 rounded-lg font-bold">
+                                <button className="bg-gradient-light w-full py-2 rounded-lg font-bold cursor-pointer">
                                     {t('createAccount')}
                                 </button>
                             </div>

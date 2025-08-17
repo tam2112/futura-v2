@@ -25,7 +25,7 @@ const models: Model[] = [
 
 export default function ModelSlider() {
     return (
-        <div className="max-w-[700px]">
+        <div className="xl:max-w-[700px] lg:max-w-[440px]">
             <Swiper
                 modules={[Navigation]}
                 slidesPerView={1}
@@ -36,7 +36,7 @@ export default function ModelSlider() {
             >
                 {models.map((model) => (
                     <SwiperSlide key={model.id}>
-                        <div style={{ height: '710px', width: '100%' }} className="relative top-8">
+                        <div className="relative top-8 xl:w-full h-[710px] lg:w-[60%] lg:mx-auto">
                             <ModelViewer modelUrl={model.url} />
                         </div>
                     </SwiperSlide>

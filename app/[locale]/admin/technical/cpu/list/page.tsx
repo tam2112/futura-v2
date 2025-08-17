@@ -81,7 +81,7 @@ export default async function CpuListPage({ searchParams }: PageProps) {
     // Define columns after data is initialized
     const columns = [
         { header: <CheckboxHeader itemIds={data.map((item: any) => item.id)} />, accessor: 'check' },
-        { header: t('name'), accessor: 'name', className: 'hidden md:table-cell' },
+        { header: t('name'), accessor: 'name', className: '' },
     ];
 
     const renderRow = (item: CpuList) => (
@@ -89,7 +89,7 @@ export default async function CpuListPage({ searchParams }: PageProps) {
             <td>
                 <Checkbox id={item.id} />
             </td>
-            <td className="hidden md:table-cell py-2">{item.name}</td>
+            <td className="py-2">{item.name}</td>
             <td className="py-2">
                 <div className="flex items-center gap-2">
                     <FormContainer table="cpu" type="update" data={item} />
@@ -101,13 +101,13 @@ export default async function CpuListPage({ searchParams }: PageProps) {
 
     return (
         <>
-            <GoToTop />
-            <div className="bg-white p-4 rounded-md flex-1 m-4 mt-0">
-                <div className="flex items-center justify-between">
-                    <h1 className="hidden md:block text-lg font-semibold">{t('allCpus')}</h1>
-                    <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
+            <GoToTop className="sm:bottom-8 bottom-32" />
+            <div className="bg-white p-4 rounded-md flex-1 mt-0">
+                <div className="flex items-center lg:justify-between justify-start">
+                    <h1 className="hidden lg:block text-lg font-semibold">{t('allCpus')}</h1>
+                    <div className="flex flex-col lg:flex-row lg:items-center gap-4 w-full md:w-auto">
                         <TableSearch />
-                        <div className="flex items-center gap-4 self-end">
+                        <div className="flex flex-wrap items-center gap-4 lg:self-end">
                             {/* Filter Dropdown */}
                             <FilterTechnicalDropdown
                                 currentSort={currentSort}
@@ -116,8 +116,8 @@ export default async function CpuListPage({ searchParams }: PageProps) {
                             />
                             <ExportButton exportAction={exportCpus} entityName={t('cpu')} />
                             <ReloadButton />
-                            <FormContainer table="cpu" type="create" />
                             <DeleteSelectedButtonClient deleteAction={deleteSelectedCpus} entityName={t('cpu')} />
+                            <FormContainer table="cpu" type="create" />
                         </div>
                     </div>
                 </div>

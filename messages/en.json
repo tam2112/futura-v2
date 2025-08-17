@@ -1,6 +1,7 @@
 {
     "Navigation": {
         "searchPlaceholder": "Search product..",
+        "noProducts": "No products found",
         "logIn": "Login",
         "signUp": "Sign up",
         "signOut": "Sign out",
@@ -153,7 +154,8 @@
         "myOrders": "My orders",
         "signOut": "Sign out",
         "signIn": "Sign in",
-        "signUp": "Sign up"
+        "signUp": "Sign up",
+        "customize": "Customize"
     },
     "LanguageSelect": {
         "vietnam": "Vietnam",

@@ -7,6 +7,7 @@ import { FieldError, FieldValues, Path, UseFormRegister } from 'react-hook-form'
 type InputFieldProps<T extends FieldValues> = {
     label: string;
     type?: string;
+    step?: string;
     register: UseFormRegister<T>;
     name: Path<T>;
     defaultValue?: T[Path<T>];
@@ -25,6 +26,7 @@ type InputFieldProps<T extends FieldValues> = {
 export default function InputField<T extends FieldValues>({
     label,
     type = 'text',
+    step,
     register,
     name,
     defaultValue,
@@ -94,6 +96,7 @@ export default function InputField<T extends FieldValues>({
                     <div className="relative bg-white border border-black rounded-lg">
                         <input
                             type={type}
+                            step={step}
                             {...register(name)}
                             placeholder={`${t('placeholder')} ${label}`}
                             className={`px-4 ${

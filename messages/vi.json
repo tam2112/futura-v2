@@ -1,6 +1,7 @@
 {
     "Navigation": {
         "searchPlaceholder": "Tìm kiếm sản phẩm..",
+        "noProducts": "Không tìm thấy sản phẩm",
         "logIn": "Đăng nhập",
         "signUp": "Đăng ký",
         "signOut": "Đăng xuất",
@@ -153,7 +154,8 @@
         "myOrders": "Đơn hàng của tôi",
         "signOut": "Đăng xuất",
         "signIn": "Đăng nhập",
-        "signUp": "Đăng ký"
+        "signUp": "Đăng ký",
+        "customize": "Tùy chỉnh"
     },
     "LanguageSelect": {
         "vietnam": "Tiếng Việt",

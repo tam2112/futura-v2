@@ -320,7 +320,7 @@ export default function FormModal({ table, type, data, id, relatedData, locale =
             {type === 'create' ? (
                 <button
                     onClick={() => setOpen(true)}
-                    className="bg-gradient-light font-semibold px-5 py-2 flex gap-1 items-center rounded-lg text-black/80"
+                    className="bg-gradient-light font-semibold px-5 py-2 flex gap-1 items-center rounded-lg text-black/80 cursor-pointer"
                 >
                     <BsPlusLg width={16} height={16} />
                     <span>{t('add')}</span>
@@ -329,7 +329,7 @@ export default function FormModal({ table, type, data, id, relatedData, locale =
                 <>
                     <button
                         onClick={() => setOpen(true)}
-                        className="size-7 flex items-center justify-center rounded-full bg-amber-400"
+                        className="size-7 flex items-center justify-center rounded-full bg-amber-400 cursor-pointer"
                         data-tooltip-id="edit-icon-tooltip"
                         data-tooltip-content={t('editTooltip')}
                     >
@@ -341,7 +341,7 @@ export default function FormModal({ table, type, data, id, relatedData, locale =
                 <>
                     <button
                         onClick={() => setOpen(true)}
-                        className="size-7 flex items-center justify-center rounded-full bg-rose-400"
+                        className="size-7 flex items-center justify-center rounded-full bg-rose-400 cursor-pointer"
                         data-tooltip-id="delete-icon-tooltip"
                         data-tooltip-content={t('deleteTooltip')}
                     >
@@ -353,7 +353,7 @@ export default function FormModal({ table, type, data, id, relatedData, locale =
                 <>
                     <button
                         onClick={() => setOpen(true)}
-                        className="size-7 flex items-center justify-center rounded-full bg-violet-400"
+                        className="size-7 flex items-center justify-center rounded-full bg-violet-400 cursor-pointer"
                         data-tooltip-id="details-icon-tooltip"
                         data-tooltip-content={t('detailsTooltip')}
                     >

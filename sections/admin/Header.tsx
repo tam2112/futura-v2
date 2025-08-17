@@ -1,24 +1,28 @@
 'use client';
 
 import Image from 'next/image';
-import { CiBellOn, CiViewBoard } from 'react-icons/ci';
+import { CiBellOn } from 'react-icons/ci';
 import { Tooltip } from 'react-tooltip';
 import Cookies from 'js-cookie';
+import { useRouter } from '@/i18n/navigation';
+import { useAuth } from '@/context/AuthContext';
 
 export default function Header() {
     const fullName = Cookies.get('fullName') || 'Robert';
     const role = Cookies.get('role') || 'Admin';
+    const router = useRouter();
+    const { logout } = useAuth();
 
     return (
-        <div className="ml-[280px] pt-[20px] mr-[30px] pb-[15px] flex justify-between items-center">
+        <div className="xl:ml-[280px] pt-[20px] pb-[15px] px-[2rem] flex justify-end items-center">
             {/* On/Off sidebar */}
-            <div
+            {/* <div
                 className="relative bg-white p-1.5 rounded-full cursor-pointer"
                 data-tooltip-id="view-tooltip"
                 data-tooltip-content="On/Off sidebar"
             >
                 <CiViewBoard size={20} />
-            </div>
+            </div> */}
             <Tooltip id="view-tooltip" />
             {/* interactive */}
             <div className="flex items-center gap-5">

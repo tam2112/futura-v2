@@ -46,17 +46,17 @@ export default function ChangePasswordModal({
     });
 
     return (
-        <div className="fixed z-[9999] top-0 left-0 right-0 bottom-0 bg-black/50 flex items-center justify-center">
-            <div className="bg-white min-w-[400px] relative p-8 rounded-lg">
+        <div className="fixed z-[9999] top-0 left-0 right-0 bottom-0 bg-black/50 flex items-center justify-center sm:px-0 px-8">
+            <div className="bg-white sm:min-w-[400px] min-w-[250px] relative p-8 rounded-lg">
                 <div className="absolute top-4 right-4">
                     <HiOutlineXMark size={20} onClick={() => setOpenModal(false)} className="cursor-pointer" />
                 </div>
                 <form onSubmit={onSubmit} className="space-y-4">
                     <h2 className="text-xl font-heading font-semibold text-center">Change password</h2>
                     <div className="space-y-4">
-                        <div className="flex flex-col gap-1 w-[420px]">
+                        <div className="flex flex-col gap-1">
                             <label htmlFor="oldPassword">Old password</label>
-                            <div className="relative bg-white border border-black rounded-lg w-[420px]">
+                            <div className="relative bg-white border border-black rounded-lg w-full">
                                 <input
                                     id="oldPassword"
                                     type={showOldPassword ? 'text' : 'password'}
@@ -77,9 +77,9 @@ export default function ChangePasswordModal({
                             </div>
                             {errors.oldPassword && <p className="text-red-500 text-sm">{errors.oldPassword.message}</p>}
                         </div>
-                        <div className="flex flex-col gap-1 w-[420px]">
+                        <div className="flex flex-col gap-1">
                             <label htmlFor="newPassword">New password</label>
-                            <div className="relative bg-white border border-black rounded-lg w-[420px]">
+                            <div className="relative bg-white border border-black rounded-lg w-full">
                                 <input
                                     id="newPassword"
                                     type={showNewPassword ? 'text' : 'password'}
@@ -100,9 +100,9 @@ export default function ChangePasswordModal({
                             </div>
                             {errors.newPassword && <p className="text-red-500 text-sm">{errors.newPassword.message}</p>}
                         </div>
-                        <div className="flex flex-col gap-1 w-[420px]">
+                        <div className="flex flex-col gap-1">
                             <label htmlFor="confirmNewPassword">Confirm new password</label>
-                            <div className="relative bg-white border border-black rounded-lg w-[420px]">
+                            <div className="relative bg-white border border-black rounded-lg w-full">
                                 <input
                                     id="confirmNewPassword"
                                     type={showConfirmNewPassword ? 'text' : 'password'}
@@ -127,12 +127,15 @@ export default function ChangePasswordModal({
                         </div>
                     </div>
                     <div className="flex items-center justify-center gap-4 mt-10">
-                        <button type="submit" className="px-6 py-2 rounded-lg bg-gradient-light font-semibold">
+                        <button
+                            type="submit"
+                            className="px-6 py-2 rounded-lg bg-gradient-light font-semibold cursor-pointer"
+                        >
                             Change
                         </button>
                         <button
                             type="button"
-                            className="px-6 py-2 rounded-lg bg-slate-200"
+                            className="px-6 py-2 rounded-lg bg-slate-200 cursor-pointer"
                             onClick={() => setOpenModal(false)}
                         >
                             Close

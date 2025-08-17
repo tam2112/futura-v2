@@ -123,7 +123,7 @@ export default function OrderUpdateForm({
                 />
                 <input type="hidden" name="id" value={data?.id} />
             </div>
-            <button className="bg-gradient-light p-2 rounded-md">{t('update')}</button>
+            <button className="bg-gradient-light p-2 rounded-md cursor-pointer">{t('update')}</button>
         </form>
     );
 }

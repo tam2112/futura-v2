@@ -77,7 +77,7 @@ export default function PopularDevices() {
 
     return (
         <div className="bg-light-gray py-8">
-            <div className="container">
+            <div className="px-[2rem]">
                 {/* Heading */}
                 <div className="hide-scrollbar flex w-full flex-col items-start justify-start gap-4 text-gray-700 md:justify-between">
                     <div className="flex w-full justify-between">
@@ -91,7 +91,7 @@ export default function PopularDevices() {
                                 <button
                                     key={id}
                                     type="button"
-                                    className={`h-8 whitespace-nowrap rounded-full px-5 text-xs transition duration-150 ease-in-out hover:bg-gradient-light ${
+                                    className={`h-8 whitespace-nowrap rounded-full px-5 text-xs transition duration-150 ease-in-out hover:bg-gradient-light cursor-pointer ${
                                         activeTab === name ? 'bg-gradient-light' : 'bg-white'
                                     }`}
                                     onClick={() => setActiveTab(name)}

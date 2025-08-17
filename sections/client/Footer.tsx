@@ -4,9 +4,9 @@ import { FaDiscord, FaFacebookF, FaTiktok, FaYoutube } from 'react-icons/fa';
 export default function Footer() {
     return (
         <footer className="bg-[#1f2324] relative overflow-x-clip py-8">
-            <div className="container">
-                <div className="flex flex-col lg:flex-row lg:justify-between items-center gap-8">
-                    <div className="font-extrabold text-2xl text-white">Futura.</div>
+            <div className="px-[2rem]">
+                <div className="">
+                    <div className="font-extrabold text-2xl text-white sm:text-left text-center">Futura.</div>
                     {/* <nav className="flex flex-col md:flex-row gap-8 md:gap-16 items-center">
                         {navItems.map(({ name, href }) => (
                             <Link

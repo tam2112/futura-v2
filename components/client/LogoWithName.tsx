@@ -5,7 +5,7 @@ export default function LogoWithName() {
         <>
             <div className="flex gap-4 items-center">
                 <Logo />
-                <div className="text-3xl font-extrabold">Futura.</div>
+                <div className="text-3xl font-extrabold hidden sm:block">Futura.</div>
             </div>
         </>
     );

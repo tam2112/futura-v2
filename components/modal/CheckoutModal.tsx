@@ -108,6 +108,7 @@ export default function CheckoutModal({ isOpen, setIsOpen, cartTotal }: Checkout
         const isValid = await deliveryForm.trigger();
         if (!isValid) {
             toast.error(t('fillAllOrderRequired'));
+            console.log(deliveryData);
             return;
         }
 
@@ -199,7 +200,7 @@ export default function CheckoutModal({ isOpen, setIsOpen, cartTotal }: Checkout
             {/* Modal */}
             <div
                 className={twMerge(
-                    'fixed top-0 right-0 h-[100dvh] w-[760px] bg-white shadow-md z-30 transition-all duration-500',
+                    'fixed top-0 right-0 h-[100dvh] sm:w-[760px] w-screen bg-white shadow-md z-30 transition-all duration-500',
                     !isOpen && 'translate-x-[100%]',
                 )}
                 ref={modalScope}
@@ -240,7 +241,7 @@ export default function CheckoutModal({ isOpen, setIsOpen, cartTotal }: Checkout
                     {/* Content */}
                     <div className="flex-1 overflow-y-auto p-6">
                         {step === 1 && (
-                            <div className="grid grid-cols-2 gap-16">
+                            <div className="grid sm:grid-cols-2 grid-cols-1 gap-16">
                                 {/* Delivery Form */}
                                 <div>
                                     <h3 className="font-semibold mb-4 text-lg">{t('deliveryInformation')}</h3>
@@ -339,19 +340,21 @@ export default function CheckoutModal({ isOpen, setIsOpen, cartTotal }: Checkout
                                 </div>
                                 {/* Cart Totals */}
                                 <div>
-                                    <h3 className="font-semibold mb-4 text-lg">{t('orderSum')}</h3>
-                                    <div className="space-y-2">
-                                        <div className="flex justify-between">
-                                            <span>{t('subtotal')}:</span>
-                                            <span>${cartTotal.toFixed(2)}</span>
-                                        </div>
-                                        <div className="flex justify-between">
-                                            <span>{t('tax')}:</span>
-                                            <span>$0.00</span>
-                                        </div>
-                                        <div className="flex justify-between font-semibold">
-                                            <span>{t('total')}:</span>
-                                            <span>${cartTotal.toFixed(2)}</span>
+                                    <div className="sm:border-none border p-4 sm:p-0 border-gray-600 rounded-lg sm:rounded-none">
+                                        <h3 className="font-semibold mb-4 text-lg">{t('orderSum')}</h3>
+                                        <div className="space-y-2">
+                                            <div className="flex justify-between">
+                                                <span>{t('subtotal')}:</span>
+                                                <span>${cartTotal.toFixed(2)}</span>
+                                            </div>
+                                            <div className="flex justify-between">
+                                                <span>{t('tax')}:</span>
+                                                <span>$0.00</span>
+                                            </div>
+                                            <div className="flex justify-between font-semibold">
+                                                <span>{t('total')}:</span>
+                                                <span>${cartTotal.toFixed(2)}</span>
+                                            </div>
                                         </div>
                                     </div>
                                     {!isStep1Complete && (

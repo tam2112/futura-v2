@@ -23,9 +23,9 @@ export default function NavCategory() {
     }, [fetchRandomCategories]);
 
     return (
-        <div>
+        <div className="hidden sm:block">
             <CategoryModal isOpen={isOpen} setIsOpen={setIsOpen} />
-            <div className="container">
+            <div className="px-[2rem]">
                 <div className="py-2 flex justify-between items-center">
                     {/* category */}
                     <ul className="flex items-center gap-6">
@@ -52,7 +52,7 @@ export default function NavCategory() {
                             </Link>
                         </li>
                         {randomCategories.map((cat) => (
-                            <li key={cat.id}>
+                            <li key={cat.id} className="hidden xl:block">
                                 <Link href={`/collections/list/${cat.slug}`}>
                                     <Button variant="text" className="font-normal relative after:left-0 capitalize">
                                         {t(`${cat.name}`)}

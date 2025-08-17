@@ -18,18 +18,20 @@ export default function Hero() {
     };
 
     return (
-        <div className="h-screen">
-            <div className="container h-full">
+        <div className="flex justify-center items-center">
+            <div className="px-[2rem] h-full">
                 <div className="flex justify-between items-center gap-12 h-full">
                     <div className="flex-1 h-full">
-                        <div className="flex flex-col justify-center mt-[200px]">
-                            <div className="inline-flex w-max items-center gap-2 px-3 py-2 rounded-full bg-gray-200 border">
-                                <span className="size-3 rounded-full bg-conic-gradient relative">
-                                    <div className="bg-conic-gradient absolute inset-0 rounded-full animate-ping-large"></div>
+                        <div className="flex flex-col justify-center sm:mt-[200px] mt-[140px]">
+                            {/* hashtag */}
+                            <div className="inline-flex w-max items-center gap-2 px-3 py-2 rounded-full bg-gray-100 border border-gray-700 mx-auto lg:mx-0">
+                                <span className="size-4 rounded-full bg-conic-gradient relative">
+                                    <div className="bg-conic-gradient absolute inset-0 rounded-full animate-ping"></div>
                                 </span>
                                 <span className="uppercase">{t('hashtag')}</span>
                             </div>
-                            <h1 className="text-4xl md:text-5xl lg:text-6xl max-w-5xl font-semibold leading-tight mt-2">
+                            {/* title */}
+                            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl lg:max-w-5xl max-w-2xl md:mx-auto font-semibold leading-tight mt-2 text-center lg:text-left">
                                 {t('titleSub')}{' '}
                                 <span className="relative">
                                     <span>{t('titleMain')}</span>
@@ -44,11 +46,16 @@ export default function Hero() {
                                     ></span>
                                 </span>
                             </h1>
-                            <p className="text-lg md:text-xl mt-8 max-w-3xl mx-auto">{t('description')}</p>
-                            <p className="mt-8">
+                            {/* description */}
+                            <p className="text-sm xl:text-xl md:text-lg sm:text-base xl:mt-8 mt-6 lg:max-w-3xl max-w-xl mx-auto text-center lg:text-left text-gray-800">
+                                {t('description')}
+                            </p>
+                            {/* explore button */}
+                            <p className="xl:mt-8 mt-6 mx-auto lg:mx-0">
                                 <Button onClick={handleScroll}>{t('exploreNow')}</Button>
                             </p>
-                            <div className="flex items-center gap-4 pt-8 divide-x-[1px] divide-gray-300">
+                            {/* stats */}
+                            <div className="hidden lg:flex items-center gap-4 pt-8 divide-x-[1px] divide-gray-300">
                                 <div className="pr-4">
                                     <h2 className="text-4xl font-bold font-heading">
                                         16<span className="bg-gradient bg-clip-text text-transparent">%</span>
@@ -70,10 +77,10 @@ export default function Hero() {
                             </div>
                         </div>
                     </div>
-                    <div className="flex-1">
+                    <div className="flex-1 hidden lg:block">
                         <div className="relative overflow-x-clip -mr-8">
-                            <div className="absolute h-[710px] w-[1600px] bottom-0 left-1/2 -translate-x-1/2 bg-emerald-300/30 [mask-image:radial-gradient(50%_50%_at_top_center,black,transparent)] -z-10"></div>
-                            <div className="absolute h-[710px] w-[1600px] bottom-0 left-1/2 -translate-x-1/2 bg-violet-300/30 [mask-image:radial-gradient(50%_50%_at_bottom_center,black,transparent)] -z-10"></div>
+                            <div className="absolute h-[710px] xl:w-[1600px] lg:w-[420px] bottom-0 left-1/2 -translate-x-1/2 bg-emerald-300/30 [mask-image:radial-gradient(50%_50%_at_top_center,black,transparent)] -z-10"></div>
+                            <div className="absolute h-[710px] xl:w-[1600px] lg:w-[420px] bottom-0 left-1/2 -translate-x-1/2 bg-violet-300/30 [mask-image:radial-gradient(50%_50%_at_bottom_center,black,transparent)] -z-10"></div>
                             <ModelSlider />
                         </div>
                     </div>

@@ -5,7 +5,7 @@ export default async function TopDealsPage() {
     const products = await getDealProducts();
 
     return (
-        <div className="pt-8 pb-16 mt-[140px]">
+        <div className="pt-8 pb-16 sm:mt-[140px] mt-[60px]">
             <ProductList initialProducts={products} showCategoriesFilter />
         </div>
     );

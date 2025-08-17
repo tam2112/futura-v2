@@ -91,7 +91,7 @@ export default async function BrandListPage({ searchParams }: PageProps) {
     const columns = [
         { header: <CheckboxHeader itemIds={data.map((item: any) => item.id)} />, accessor: 'check' },
         { header: t('image'), accessor: 'img' },
-        { header: t('name'), accessor: 'name', className: 'hidden md:table-cell' },
+        { header: t('name'), accessor: 'name', className: '' },
     ];
 
     const renderRow = (item: BrandList) => (
@@ -99,7 +99,7 @@ export default async function BrandListPage({ searchParams }: PageProps) {
             <td>
                 <Checkbox id={item.id} />
             </td>
-            <td className="hidden md:table-cell py-2">
+            <td className="py-2">
                 {item.images.length > 0 ? (
                     <Image
                         src={item.images[0].url}
@@ -112,7 +112,7 @@ export default async function BrandListPage({ searchParams }: PageProps) {
                     <span>-</span>
                 )}
             </td>
-            <td className="hidden md:table-cell py-2">{item.name}</td>
+            <td className="py-2">{item.name}</td>
             <td className="py-2">
                 <div className="flex items-center gap-2">
                     <FormContainer table="brand" type="update" data={item} />
@@ -124,13 +124,13 @@ export default async function BrandListPage({ searchParams }: PageProps) {
 
     return (
         <>
-            <GoToTop />
-            <div className="bg-white p-4 rounded-md flex-1 m-4 mt-0">
-                <div className="flex items-center justify-between">
-                    <h1 className="hidden md:block text-lg font-semibold">{t('allBrands')}</h1>
-                    <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
+            <GoToTop className="sm:bottom-8 bottom-32" />
+            <div className="bg-white p-4 rounded-md flex-1 mt-0">
+                <div className="flex items-center lg:justify-between justify-start">
+                    <h1 className="hidden lg:block text-lg font-semibold">{t('allBrands')}</h1>
+                    <div className="flex flex-col lg:flex-row lg:items-center gap-4 w-full md:w-auto">
                         <TableSearch />
-                        <div className="flex items-center gap-4 self-end">
+                        <div className="flex flex-wrap items-center gap-4 lg:self-end">
                             {/* Filter Dropdown */}
                             <FilterTechnicalDropdown
                                 currentSort={currentSort}
@@ -139,8 +139,8 @@ export default async function BrandListPage({ searchParams }: PageProps) {
                             />
                             <ExportButton exportAction={exportBrands} entityName={t('brand')} />
                             <ReloadButton />
-                            <FormContainer table="brand" type="create" />
                             <DeleteSelectedButtonClient deleteAction={deleteSelectedBrands} entityName={t('brand')} />
+                            <FormContainer table="brand" type="create" />
                         </div>
                     </div>
                 </div>

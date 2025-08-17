@@ -33,7 +33,7 @@ export default function DeviceSliderBtn({ swiperRef }: DeviceSliderBtnProps) {
 
     return (
         <>
-            <div className="-left-6 lg:absolute top-1/2 -translate-y-1/2 z-[11]">
+            <div className="-left-6 absolute top-1/2 -translate-y-1/2 z-[11]">
                 <Button
                     onClick={() => swiperRef.current?.slidePrev()}
                     className={twMerge('!rounded-full py-4 px-3', isBeginning ? 'invisible' : 'visible')}
@@ -41,7 +41,7 @@ export default function DeviceSliderBtn({ swiperRef }: DeviceSliderBtnProps) {
                     <GrPrevious size={20} />
                 </Button>
             </div>
-            <div className="-right-6 lg:absolute top-1/2 -translate-y-1/2 z-[11]">
+            <div className="-right-6 absolute top-1/2 -translate-y-1/2 z-[11]">
                 <Button
                     onClick={() => swiperRef.current?.slideNext()}
                     className={twMerge('!rounded-full py-4 px-3', isEnd ? 'invisible' : 'visible')}

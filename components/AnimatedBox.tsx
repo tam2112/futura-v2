@@ -40,7 +40,7 @@ const classes = cva('text-black py-2 cursor-pointer', {
             true: 'w-full',
         },
         variant: {
-            primary: 'border-gradient px-6 rounded-lg font-medium',
+            primary: 'border-gradient px-6 rounded-lg font-medium cursor-pointer',
             secondary: 'bg-gray-100 text-white rounded-lg',
             tertiary: 'bg-gray-800 text-gray-200 rounded-lg',
             text: 'rounded-lg hover:font-medium h-auto border-transparent after:transition-all after:duration-500 after:content-[""] after:h-[2px] after:w-0 after:absolute after:top-[90%] after:bg-gradient hover:after:w-full',

@@ -66,14 +66,14 @@ export default function FavouritePage() {
     return (
         <>
             <GoToTop />
-            <div className="min-h-[70vh] mt-[180px] px-16 pb-8">
-                <div className="grid grid-cols-3 gap-8">
+            <div className="min-h-[70vh] sm:mt-[180px] mt-[120px] xl:px-16 px-[2rem] pb-8">
+                <div className="grid xl:grid-cols-3 grid-cols-1 gap-8">
                     {/* menu */}
                     <div
-                        className="col-span-1 bg-white min-h-[500px] border-slate-200 border rounded-lg max-h-[70vh] sticky top-[180px] left-0"
+                        className="xl:col-span-1 bg-white xl:min-h-[500px] min-h-auto border-slate-200 border rounded-lg max-h-[70vh] xl:sticky xl:top-[180px] xl:left-0"
                         style={{ boxShadow: 'rgba(0, 0, 0, 0.1) 0px 15px 20px -10px' }}
                     >
-                        <div className="flex flex-col justify-between h-full p-6">
+                        <div className="flex xl:flex-col lg:flex-row flex-col justify-between xl:items-start lg:items-center items-start h-full p-6">
                             {/* item */}
                             <div className="space-y-4">
                                 <h2 className="text-lg font-semibold font-heading">{a('title')}</h2>
@@ -126,7 +126,7 @@ export default function FavouritePage() {
                                 </div>
                             </div>
                             {/* account */}
-                            <div className="space-y-4">
+                            <div className="space-y-4 mt-8 sm:mt-0">
                                 <div className="border border-black rounded-full size-[68px] flex items-center justify-center">
                                     <Image src={avatarImage} alt="" className="size-16" />
                                 </div>
@@ -144,7 +144,7 @@ export default function FavouritePage() {
                         </div>
                     </div>
                     {/* content */}
-                    <div className="col-span-2 space-y-4">
+                    <div className="xl:col-span-2 space-y-4">
                         <div className="space-y-1">
                             <h2 className="text-2xl font-semibold font-heading">{t('title')}</h2>
                             <p className="text-sm font-light">{t('description')}</p>

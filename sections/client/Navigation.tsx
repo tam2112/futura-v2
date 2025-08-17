@@ -2,7 +2,7 @@
 
 import { CiSearch } from 'react-icons/ci';
 import LogoWithName from '../../components/client/LogoWithName';
-import { HiOutlineShoppingBag } from 'react-icons/hi2';
+import { HiBars3BottomRight, HiOutlineShoppingBag } from 'react-icons/hi2';
 import Box from '../../components/Box';
 import Image from 'next/image';
 import { GoChevronDown } from 'react-icons/go';
@@ -20,6 +20,7 @@ import { getProducts } from '@/lib/actions/product.action';
 import { debounce } from 'lodash';
 import Loader from '@/components/Loader';
 import { useTranslations } from 'next-intl';
+import CategoryModal from '@/components/modal/CategoryModal';
 
 export default function Navigation() {
     const { isLoggedIn, logout } = useAuth();
@@ -34,6 +35,8 @@ export default function Navigation() {
     const [isLoading, setIsLoading] = useState(false);
     const searchContainerRef = useRef<HTMLDivElement>(null);
     const t = useTranslations('Navigation');
+
+    const [isOpenMenu, setIsOpenMenu] = useState(false);
 
     useEffect(() => {
         updateCartAmount();
@@ -100,6 +103,7 @@ export default function Navigation() {
 
     return (
         <>
+            <CategoryModal isOpen={isOpenMenu} setIsOpen={setIsOpenMenu} />
             {isLoading && (
                 <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/10">
                     <Loader />
@@ -107,14 +111,14 @@ export default function Navigation() {
             )}
             <CartModal isOpenCart={isOpenCart} setIsOpenCart={setIsOpenCart} />
             <div className="border-b border-black/5">
-                <div className="container">
+                <div className="px-[2rem]">
                     <div className="h-20 flex justify-between items-center">
                         {/* left nav */}
                         <Link href="/">
                             <LogoWithName />
                         </Link>
                         {/* middle nav */}
-                        <div className="w-[500px]" ref={searchContainerRef}>
+                        <div className="w-[500px] hidden lg:block" ref={searchContainerRef}>
                             <div className="ml-12 relative">
                                 <div className="border border-black/60 rounded-full relative">
                                     <CiSearch size={20} className="absolute top-1/2 -translate-y-1/2 ml-3" />
@@ -127,7 +131,7 @@ export default function Navigation() {
                                         onFocus={() => searchQuery && setIsSuggestionsOpen(true)}
                                     />
                                 </div>
-                                {isSuggestionsOpen && suggestions.length > 0 && (
+                                {isSuggestionsOpen && suggestions.length > 0 ? (
                                     <div className="absolute z-10 w-full bg-white border border-gray-300 rounded-lg mt-1 shadow-lg">
                                         <ul className="flex flex-col">
                                             {suggestions.map((product) => (
@@ -152,11 +156,15 @@ export default function Navigation() {
                                             ))}
                                         </ul>
                                     </div>
-                                )}
+                                ) : isSuggestionsOpen && searchQuery ? (
+                                    <div className="absolute z-10 w-full bg-white border border-gray-300 rounded-lg mt-1 shadow-lg">
+                                        <p className="p-2 text-gray-500">{t('noProducts')}</p>
+                                    </div>
+                                ) : null}
                             </div>
                         </div>
                         {/* right nav */}
-                        <div className="flex items-center gap-4">
+                        <div className="hidden sm:block">
                             {/* account */}
                             <div className="flex items-center gap-4">
                                 {/* have an account */}
@@ -246,6 +254,28 @@ export default function Navigation() {
                                     </>
                                 )}
                                 {/* no account */}
+                            </div>
+                        </div>
+                        {/* right nav mobile */}
+                        <div className="sm:hidden flex items-center gap-4">
+                            {isLoggedIn && (
+                                <div
+                                    onClick={() => setIsOpenCart(true)}
+                                    className="size-10 text-center flex items-center justify-center border border-black/10 rounded-lg relative cursor-pointer"
+                                >
+                                    {itemAmount > 0 && (
+                                        <div className="absolute right-0 -top-0 size-4 rounded-full bg-gradient flex items-center justify-center text-xs text-white/85 font-extrabold">
+                                            {itemAmount}
+                                        </div>
+                                    )}
+                                    <HiOutlineShoppingBag size={20} />
+                                </div>
+                            )}
+                            <div
+                                className="rounded-lg size-10 flex justify-center items-center border border-black/10"
+                                onClick={() => setIsOpenMenu(true)}
+                            >
+                                <HiBars3BottomRight size={30} />
                             </div>
                         </div>
                     </div>

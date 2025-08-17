@@ -12,10 +12,12 @@ import DeviceSliderBtn from './DeviceSliderBtn';
 import { useEffect, useRef } from 'react';
 import { useProductStore } from '@/store/productStore';
 import { Link } from '@/i18n/navigation';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
+import { formatPrice } from '@/lib/utils';
 
 export default function TopDealsSlider() {
     const t = useTranslations('TopDeals');
+    const locale = useLocale() as 'en' | 'vi';
 
     const swiperRef = useRef<SwiperType | null>(null);
     const { dealProducts, fetchDealProducts } = useProductStore();
@@ -29,9 +31,14 @@ export default function TopDealsSlider() {
         <>
             <Swiper
                 modules={[Navigation]}
-                slidesPerView={3}
+                breakpoints={{
+                    320: { slidesPerView: 1, slidesPerGroup: 1 },
+                    640: { slidesPerView: 2, slidesPerGroup: 1 },
+                    768: { slidesPerView: 2, slidesPerGroup: 1 },
+                    1024: { slidesPerView: 3, slidesPerGroup: 2 },
+                    1280: { slidesPerView: 3, slidesPerGroup: 2 },
+                }}
                 spaceBetween={10}
-                slidesPerGroup={3}
                 speed={700}
                 onSwiper={(swiper) => {
                     swiperRef.current = swiper;
@@ -41,7 +48,7 @@ export default function TopDealsSlider() {
                 {dealProducts.map(({ id, name, price, priceWithDiscount, images, promotions, slug }, index) => (
                     <SwiperSlide key={id}>
                         <Link href={`/collections/details/${slug}`}>
-                            <div className="flex h-full w-full cursor-pointer flex-col rounded-xl bg-white p-4 group/top-deal">
+                            <div className="flex min-h-[312px] w-full cursor-pointer flex-col rounded-xl bg-white p-4 group/top-deal">
                                 {/* Order */}
                                 <div className="absolute -right-3 -top-3 flex h-9 w-9 items-center justify-center rounded-full border-4 border-gray-200 bg-gradient-light text-xs text-cover-deals">
                                     #<span className="ml-[1px] font-heading font-bold">{index + 1}</span>
@@ -70,13 +77,15 @@ export default function TopDealsSlider() {
                                 </div>
                                 {/* Content */}
                                 <div className="mt-3 flex flex-1 flex-col justify-between">
-                                    <h3 className="two-line-ellipsis text-sm">{name}</h3>
+                                    <h3 className="text-sm xl:line-clamp-4 md:line-clamp-3 line-clamp-2">{name}</h3>
                                     <div className="flex items-center gap-2">
                                         {/* Original price (strikethrough) */}
-                                        <h4 className="mt-5 text-sm line-through font-light">${price.toFixed(2)}</h4>
+                                        <h4 className="mt-5 text-sm line-through font-light dark:text-white">
+                                            {formatPrice(price, locale)}
+                                        </h4>
                                         {/* Discounted price */}
-                                        <h4 className="mt-5 text-sm font-extrabold">
-                                            ${priceWithDiscount?.toFixed(2)}
+                                        <h4 className="mt-5 text-sm font-extrabold dark:text-white">
+                                            {formatPrice(priceWithDiscount ?? price, locale)}
                                         </h4>
                                     </div>
                                 </div>

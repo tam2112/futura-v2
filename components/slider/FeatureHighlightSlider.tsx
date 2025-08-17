@@ -30,6 +30,13 @@ export default function FeatureHighlightSlider() {
             <Swiper
                 modules={[Navigation]}
                 slidesPerView={3}
+                breakpoints={{
+                    320: { slidesPerView: 2 },
+                    640: { slidesPerView: 2 },
+                    768: { slidesPerView: 3 },
+                    1024: { slidesPerView: 3 },
+                    1280: { slidesPerView: 3 },
+                }}
                 spaceBetween={10}
                 slidesPerGroup={3}
                 speed={700}

@@ -22,7 +22,7 @@ export default function Pagination({ page, count }: { page: number; count: numbe
             <button
                 onClick={() => changePage(page - 1)}
                 disabled={!hasPrev}
-                className="py-3 px-4 rounded-md bg-gray-100 text-xs font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                className="py-3 px-4 rounded-md bg-gray-100 text-xs font-semibold cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
                 <SlArrowLeft />
             </button>
@@ -33,7 +33,7 @@ export default function Pagination({ page, count }: { page: number; count: numbe
                     return (
                         <button
                             key={pageIndex}
-                            className={`px-4 py-2 rounded-lg hover:bg-gradient-light transition-all duration-300 ${
+                            className={`px-4 py-2 rounded-lg hover:bg-gradient-light transition-all duration-300 cursor-pointer ${
                                 page === pageIndex ? 'bg-gradient-light' : ''
                             }`}
                             onClick={() => changePage(pageIndex)}
@@ -46,7 +46,7 @@ export default function Pagination({ page, count }: { page: number; count: numbe
             <button
                 onClick={() => changePage(page + 1)}
                 disabled={!hasNext}
-                className="py-3 px-4 rounded-md bg-gray-100 text-xs font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                className="py-3 px-4 rounded-md bg-gray-100 text-xs font-semibold cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
                 <SlArrowRight />
             </button>

@@ -79,6 +79,7 @@ export default function ProductList({ initialProducts, showCategoriesFilter = fa
     const [openFilters, setOpenFilters] = useState<Record<string, boolean>>({});
     const filterRefs = useRef<Record<string, HTMLDivElement | null>>({});
     const debouncedSetFilters = debounce(setFilters, 300);
+    const [isOpen, setIsOpen] = useState(false);
 
     // Fixed exchange rate (1 USD = 25,000 VND)
     const EXCHANGE_RATE = 25000;
@@ -164,6 +165,10 @@ export default function ProductList({ initialProducts, showCategoriesFilter = fa
             sortFn: (a, b) => (b.priceWithDiscount || b.price) - (a.priceWithDiscount || a.price),
         },
     ];
+
+    const toggleDropdown = () => {
+        setIsOpen(!isOpen); // Toggle trạng thái dropdown khi click
+    };
 
     // Filter and sort products with delay
     useEffect(() => {
@@ -275,11 +280,11 @@ export default function ProductList({ initialProducts, showCategoriesFilter = fa
                 <div className="container pb-8">
                     <div className="mt-5 grid grid-cols-12 gap-x-5">
                         {/* Attribute Filters */}
-                        <section className="col-span-4 hidden h-fit rounded-md border lg:block xl:col-span-3">
-                            <div className="group grid divide-y">
+                        <section className="col-span-12 h-fit rounded-md border border-gray-300 xl:col-span-3">
+                            <div className="group grid divide-y divide-gray-300 rounded-md border-gray-200 bg-white">
                                 <div className="px-4 pt-4">
                                     <div>
-                                        <h2 className="mb-2 text-base font-bold capitalize text-gray-700 xs:mb-3 lg:text-sm lg:uppercase">
+                                        <h2 className="mb-2 text-base font-bold text-gray-700 xs:mb-3 lg:text-sm uppercase">
                                             {t('priceRange')}
                                         </h2>
                                         <div className="price-span grid grid-cols-2 gap-2">
@@ -306,7 +311,7 @@ export default function ProductList({ initialProducts, showCategoriesFilter = fa
                                         </div>
                                     </div>
                                 </div>
-                                <div className="divide-y">
+                                <div className="divide-y divide-gray-300">
                                     {Object.entries(filterDataMap)
                                         .filter(([_, options]) => options.length > 0)
                                         .map(([filterName]) => (
@@ -357,12 +362,12 @@ export default function ProductList({ initialProducts, showCategoriesFilter = fa
                         <section className="col-span-12 gap-x-5 lg:col-span-8 xl:col-span-9">
                             {/* Filter Buttons */}
                             <div className="grid grid-cols-12 gap-y-2.5 gap-x-5">
-                                <div className="order-2 col-span-12 lg:order-1 lg:col-span-9">
+                                <div className="order-2 col-span-12 xl:order-1 lg:col-span-9">
                                     <div className="hide-scrollbar flex flex-nowrap gap-1 overflow-hidden overflow-x-scroll">
                                         {filterDataMap.Category?.map(({ id, name }) => (
                                             <button
                                                 key={id}
-                                                className={`flex h-10 shrink-0 items-center justify-center rounded-md border px-3 text-sm outline-none transition duration-300 ease-in-out disabled:opacity-40 hover:cursor-pointer ${
+                                                className={`flex h-10 shrink-0 items-center justify-center rounded-md border border-gray-300 px-3 text-sm outline-none transition duration-300 ease-in-out disabled:opacity-40 hover:cursor-pointer ${
                                                     filters.Category?.includes(id)
                                                         ? 'bg-gradient-light'
                                                         : 'hover:bg-gradient-light'
@@ -375,7 +380,7 @@ export default function ProductList({ initialProducts, showCategoriesFilter = fa
                                         {filterDataMap.Brand.map(({ id, name }) => (
                                             <button
                                                 key={id}
-                                                className={`flex h-10 shrink-0 items-center justify-center rounded-md border px-3 text-sm outline-none transition duration-300 ease-in-out disabled:opacity-40 hover:cursor-pointer ${
+                                                className={`flex h-10 shrink-0 items-center justify-center rounded-md border border-gray-300 px-3 text-sm outline-none transition duration-300 ease-in-out disabled:opacity-40 hover:cursor-pointer ${
                                                     filters.Brand?.includes(id)
                                                         ? 'bg-gradient-light'
                                                         : 'hover:bg-gradient-light'
@@ -387,15 +392,18 @@ export default function ProductList({ initialProducts, showCategoriesFilter = fa
                                         ))}
                                     </div>
                                 </div>
-                                <div className="order-1 col-span-12 mr-[-2px] grid h-10 grid-cols-2 divide-x rounded-md border text-sm lg:order-2 lg:col-span-3 lg:grid-cols-1 lg:divide-x-0">
-                                    <button className="flex items-center justify-center gap-x-3 disabled:opacity-40 lg:hidden hover:underline hover:underline-offset-2">
+                                <div className="order-1 col-span-12 mr-[-2px] grid h-10 xl:grid-cols-2 grid-cols-5 divide-x divide-gray-400 rounded-md border border-gray-300 text-sm xl:order-2 xl:col-span-3 lg:col-span-12 xl:divide-x-0 xl:mt-0 mt-8">
+                                    <button className="flex items-center justify-center gap-x-3 disabled:opacity-40 xl:hidden hover:underline hover:underline-offset-2 relative col-span-2">
                                         {t('filters')}
-                                        <div className="h-4 w-4">
-                                            <CiFilter size={50} />
+                                        <div className="h-4 w-4 absolute top-1/2 -translate-y-1/2 right-3">
+                                            <CiFilter size={20} className="text-gray-600" />
                                         </div>
                                     </button>
-                                    <div className="relative z-20 opacity-100 group">
-                                        <button className="flex h-full w-full items-center justify-center gap-x-3 px-3 lg:justify-between">
+                                    <div className="relative z-20 opacity-100 group col-span-3">
+                                        <button
+                                            className="flex h-full w-full items-center justify-center gap-x-3 px-3 lg:justify-between"
+                                            onClick={toggleDropdown}
+                                        >
                                             <span className="block truncate">
                                                 {sortOptions.find((opt) => opt.id === sortOption)?.title ||
                                                     t('latestRelease')}
@@ -411,13 +419,15 @@ export default function ProductList({ initialProducts, showCategoriesFilter = fa
                                             </span>
                                         </button>
                                         <ul
-                                            className="absolute invisible group-hover:visible opacity-0 group-hover:opacity-100 w-full rounded border bg-white transition-all duration-500"
+                                            className={`absolute ${
+                                                isOpen ? 'visible opacity-100' : 'invisible opacity-0'
+                                            } group-hover:visible group-hover:opacity-100 w-full rounded border border-gray-300 bg-white transition-all duration-500`}
                                             style={{ boxShadow: 'rgba(0, 0, 0, 0.1) 0px 15px 20px -10px' }}
                                         >
                                             {sortOptions.map(({ id, title }) => (
                                                 <button
                                                     key={id}
-                                                    className="group relative w-full py-2 text-left hover:underline"
+                                                    className="group relative w-full py-2 text-left hover:underline cursor-pointer"
                                                     onClick={() => setSortOption(id)}
                                                 >
                                                     <span className="absolute inline-block h-[6px] w-[6px] -translate-y-1/2 rounded-full ring-gray-700 ring-offset-white left-4 top-1/2 border-none bg-white ring-[1px] ring-offset-[1.5px]"></span>

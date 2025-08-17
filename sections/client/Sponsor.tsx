@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 export default function Sponsor() {
     return (
         <div className="bg-white py-8 sm:py-10 md:py-12 lg:py-14">
-            <div className="container">
+            <div className="px-[2rem]">
                 <div className="flex overflow-x-clip [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
                     <motion.div
                         initial={{ x: 0 }}

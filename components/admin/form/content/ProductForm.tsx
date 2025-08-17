@@ -268,9 +268,18 @@ export default function ProductForm({
                             error={errors.name}
                             hideIcon
                         />
-                        <InputField label={t('price')} name="price" register={register} error={errors.price} hideIcon />
+                        <InputField
+                            label={t('price')}
+                            type="number"
+                            step="any"
+                            name="price"
+                            register={register}
+                            error={errors.price}
+                            hideIcon
+                        />
                         <InputField
                             label={t('quantity')}
+                            type="number"
                             name="quantity"
                             register={register}
                             error={errors.quantity}
@@ -409,7 +418,7 @@ export default function ProductForm({
                 </div>
             )}
 
-            <button className="bg-gradient-light p-2 rounded-md">
+            <button className="bg-gradient-light p-2 rounded-md cursor-pointer">
                 {type === 'create' ? t('create') : t('update')}
             </button>
         </form>

@@ -72,21 +72,21 @@ export default function MyProfilePage() {
     };
 
     return (
-        <>
+        <div className="overflow-hidden">
             {openModal && <ChangePasswordModal openModal={openModal} setOpenModal={setOpenModal} />}
-            <div className="min-h-[70vh] mt-[180px] px-16 pb-8">
-                <div className="grid grid-cols-3 gap-8">
+            <div className="min-h-[70vh] sm:mt-[180px] mt-[120px] xl:px-16 px-[2rem] pb-8">
+                <div className="grid xl:grid-cols-3 grid-cols-1 gap-8">
                     {/* menu */}
                     <div
-                        className="col-span-1 bg-white min-h-[500px] border-slate-200 border rounded-lg max-h-[70vh] sticky top-[180px] left-0"
+                        className="xl:col-span-1 bg-white xl:min-h-[500px] min-h-auto border-slate-200 border rounded-lg max-h-[70vh] xl:sticky xl:top-[180px] xl:left-0"
                         style={{ boxShadow: 'rgba(0, 0, 0, 0.1) 0px 15px 20px -10px' }}
                     >
-                        <div className="flex flex-col justify-between h-full p-6">
+                        <div className="flex xl:flex-col md:flex-row flex-col justify-between xl:items-start md:items-center items-start h-full p-6">
                             {/* item */}
                             <div className="space-y-4">
                                 <h2 className="text-lg font-semibold font-heading">{a('title')}</h2>
                                 <div className="space-y-2">
-                                    <div className="relative w-max">
+                                    <div className="w-max">
                                         <Link href="/favourite">
                                             <Button
                                                 variant="text"
@@ -134,7 +134,7 @@ export default function MyProfilePage() {
                                 </div>
                             </div>
                             {/* account */}
-                            <div className="space-y-4">
+                            <div className="space-y-4 mt-8 sm:mt-0">
                                 <div className="border border-black rounded-full size-[68px] flex items-center justify-center">
                                     <Image src={avatarImage} alt="" className="size-16" />
                                 </div>
@@ -152,27 +152,27 @@ export default function MyProfilePage() {
                         </div>
                     </div>
                     {/* Content */}
-                    <div className="col-span-2 space-y-4">
+                    <div className="xl:col-span-2 space-y-4 sm:mt-16 mt-0">
                         <div className="space-y-1">
                             <h2 className="text-2xl font-semibold font-heading">{m('title')}</h2>
                             <p className="text-sm font-light">{m('description')}</p>
                         </div>
                         <form onSubmit={onSubmit} className="space-y-4">
                             <div className="space-y-1">
-                                <div className="flex flex-col gap-1 w-[420px]">
+                                <div className="flex flex-col gap-1 sm:w-[420px] w-full">
                                     <label htmlFor="">{m('email')}</label>
-                                    <div className="relative bg-white border border-black rounded-lg w-[420px]">
+                                    <div className="bg-white border border-black rounded-lg xl:w-[420px] w-full">
                                         <input
                                             type="email"
                                             value={email}
                                             disabled
-                                            className="px-4 py-2 min-w-[419px] rounded-lg outline-none cursor-not-allowed disabled:bg-black/5"
+                                            className="px-4 py-2 sm:min-w-[419px] w-full rounded-lg outline-none cursor-not-allowed disabled:bg-black/5"
                                         />
                                     </div>
                                 </div>
-                                <div className="flex flex-col gap-1 w-[420px]">
+                                <div className="flex flex-col gap-1 sm:w-[420px] w-full">
                                     <label htmlFor="fullName">{m('fullName')}</label>
-                                    <div className="relative bg-white border border-black rounded-lg w-[420px]">
+                                    <div className="bg-white border border-black rounded-lg xl:w-[420px] w-full">
                                         <input
                                             id="fullName"
                                             type="text"
@@ -188,7 +188,7 @@ export default function MyProfilePage() {
                             <div>
                                 <button
                                     type="submit"
-                                    className="bg-gradient-lighter hover:bg-gradient-light font-semibold px-6 py-2 rounded-lg"
+                                    className="bg-gradient-lighter hover:bg-gradient-light font-semibold px-6 py-2 rounded-lg cursor-pointer"
                                 >
                                     {m('update')}
                                 </button>
@@ -205,6 +205,6 @@ export default function MyProfilePage() {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 }

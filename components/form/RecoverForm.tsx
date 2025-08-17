@@ -233,7 +233,10 @@ export default function RecoverForm() {
                         </div>
                         <div className="space-y-3 mt-6">
                             <div>
-                                <button type="submit" className="bg-gradient-light w-full py-2 rounded-lg font-bold">
+                                <button
+                                    type="submit"
+                                    className="bg-gradient-light w-full py-2 rounded-lg font-bold cursor-pointer"
+                                >
                                     {step === 'password' ? t('recover') : t('confirm')}
                                 </button>
                             </div>

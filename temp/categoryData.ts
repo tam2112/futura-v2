@@ -41,13 +41,13 @@ export const allCategoriesData = [
 ];
 
 export const popularCategoriesData = [
-    { id: 1, name: 'Computers', img: computers, href: '/' },
-    { id: 2, name: 'Smartphones', img: smartphones, href: '/' },
-    { id: 3, name: 'Laptops', img: laptops, href: '/' },
-    { id: 4, name: 'Audio', img: audio, href: '/' },
-    { id: 5, name: 'Smartwatches', img: smartwatches, href: '/' },
-    { id: 6, name: 'Tablets', img: tablets, href: '/' },
-    { id: 7, name: 'Cameras & Drones', img: camerasDrones, href: '/' },
-    { id: 8, name: 'Television', img: televisions, href: '/' },
-    { id: 9, name: 'Home Audio', img: homeAudio, href: '/' },
+    { id: 1, name: 'computers', img: computers, href: '/' },
+    { id: 2, name: 'smartphones', img: smartphones, href: '/' },
+    { id: 3, name: 'laptops', img: laptops, href: '/' },
+    { id: 4, name: 'audio', img: audio, href: '/' },
+    { id: 5, name: 'smartwatches', img: smartwatches, href: '/' },
+    { id: 6, name: 'tablets', img: tablets, href: '/' },
+    { id: 7, name: 'cameras & drones', img: camerasDrones, href: '/' },
+    { id: 8, name: 'televisions', img: televisions, href: '/' },
+    { id: 9, name: 'home audio', img: homeAudio, href: '/' },
 ];

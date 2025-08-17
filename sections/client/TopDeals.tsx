@@ -16,7 +16,7 @@ export default function TopDeals() {
 
     return (
         <div className="py-6">
-            <div className="container">
+            <div className="px-[2rem]">
                 <h2 className="flex items-center gap-1 text-lg font-bold md:text-xl">
                     {t('titleSub')}{' '}
                     <span className="relative">

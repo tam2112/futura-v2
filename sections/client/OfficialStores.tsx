@@ -81,7 +81,7 @@ export default function OfficialStores() {
 
     return (
         <div className="py-8 bg-light-gray">
-            <div className="container">
+            <div className="px-[2rem]">
                 <div className="flex items-center justify-between">
                     <h2 className="flex items-center text-lg font-bold font-heading md:text-xl">{t('title')}</h2>
                 </div>
@@ -91,7 +91,7 @@ export default function OfficialStores() {
                         {brands.map(({ id, title }) => (
                             <button
                                 key={id}
-                                className={`h-8 whitespace-nowrap rounded-full px-5 text-xs transition duration-150 ease-in-out hover:bg-gradient-light ${
+                                className={`h-8 whitespace-nowrap rounded-full px-5 text-xs transition duration-150 ease-in-out hover:bg-gradient-light cursor-pointer ${
                                     activeTab === title ? 'bg-gradient-light' : 'bg-white'
                                 }`}
                                 onClick={() => setActiveTab(title)}
