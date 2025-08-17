@@ -103,7 +103,9 @@ export default function CheckoutModal({ isOpen, setIsOpen, cartTotal }: Checkout
         }
     }, [isOpen, modalAnimate, modalScope]);
 
-    const handleOrderNow = async (deliveryData: DeliveryInfoSchema) => {
+    const handleOrderNow = async () => {
+        // Gửi yêu cầu tạo đơn hàng với dữ liệu đã có
+        const deliveryData = deliveryForm.getValues();
         const userId = await getUserIdFromCookie();
         if (!userId) {
             toast.error(t('logInPlaceOrder'));
@@ -337,13 +339,13 @@ export default function CheckoutModal({ isOpen, setIsOpen, cartTotal }: Checkout
                                         <div className="mt-4 space-y-2">
                                             <button
                                                 onClick={deliveryForm.handleSubmit(handleOrderNow)}
-                                                className="w-full py-2 bg-gradient-light text-black rounded font-semibold"
+                                                className="w-full py-2 bg-gradient-light text-black rounded font-semibold cursor-pointer"
                                             >
                                                 {t('orderNow')}
                                             </button>
                                             <button
                                                 onClick={deliveryForm.handleSubmit(handlePayNow)}
-                                                className="w-full py-2 border-gradient text-black rounded font-semibold"
+                                                className="w-full py-2 border-gradient text-black rounded font-semibold cursor-pointer"
                                             >
                                                 {t('payNow')}
                                             </button>
@@ -353,7 +355,7 @@ export default function CheckoutModal({ isOpen, setIsOpen, cartTotal }: Checkout
                                         <div className="mt-4">
                                             <button
                                                 onClick={deliveryForm.handleSubmit(handleMoveToStep2)}
-                                                className="w-full py-2 bg-gradient-light text-black rounded font-semibold"
+                                                className="w-full py-2 bg-gradient-light text-black rounded font-semibold cursor-pointer"
                                             >
                                                 {t('moveToStep2')}
                                             </button>
