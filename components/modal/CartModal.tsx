@@ -24,7 +24,11 @@ export default function CartModal({ isOpenCart, setIsOpenCart }: CartModalType) 
 
     useEffect(() => {
         if (isOpenCart) {
-            updateCart();
+            // Chỉ gọi updateCart nếu giỏ hàng chưa được cập nhật
+			if (cart.length === 0) {
+				console.log('Calling updateCart');
+				updateCart();
+			}
             setShowOverlay(true);
             cartAnimate(
                 cartScope.current,
@@ -43,7 +47,7 @@ export default function CartModal({ isOpenCart, setIsOpenCart }: CartModalType) 
                 setShowOverlay(false);
             }, 500); // Thời gian delay phải khớp với thời gian transition
         }
-    }, [isOpenCart, cartAnimate, cartScope, updateCart]);
+    }, [isOpenCart, cartAnimate, cartScope, updateCart, cart.length]);
 
     return (
         <>

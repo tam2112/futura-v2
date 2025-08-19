@@ -339,14 +339,14 @@ export default function CheckoutModal({ isOpen, setIsOpen, cartTotal }: Checkout
                                         <div className="mt-4 space-y-2">
                                             <button
                                                 type="button"
-                                                onClick={deliveryForm.handleSubmit(handleOrderNow)}
+                                                onClick={handleOrderNow}
                                                 className="w-full py-2 bg-gradient-light text-black rounded font-semibold cursor-pointer"
                                             >
                                                 {t('orderNow')}
                                             </button>
                                             <button
                                                 type="button"
-                                                onClick={deliveryForm.handleSubmit(handlePayNow)}
+                                                onClick={handlePayNow}
                                                 className="w-full py-2 border-gradient text-black rounded font-semibold cursor-pointer"
                                             >
                                                 {t('payNow')}
@@ -423,7 +423,7 @@ export default function CheckoutModal({ isOpen, setIsOpen, cartTotal }: Checkout
                                     )}
                                     <button
                                         type="submit"
-                                        className="w-full py-2 bg-gradient-medium text-black rounded font-semibold"
+                                        className="w-full py-2 bg-gradient-medium text-black rounded font-semibold cursor-pointer"
                                     >
                                         {t('pay')}
                                     </button>

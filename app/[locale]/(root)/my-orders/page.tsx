@@ -208,9 +208,9 @@ export default function MyOrderPage() {
                                 orders.map((order) => (
                                     <div
                                         key={order.id}
-                                        className="border rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow"
+                                        className="border border-black/50 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow"
                                     >
-                                        <div className="flex items-center justify-between mb-4">
+                                        <div className="flex sm:flex-row flex-col sm:items-center items-start sm:justify-between justify-start mb-4">
                                             <div className="flex items-center gap-4">
                                                 <Image
                                                     src={order.product.images[0]?.url || '/device-test-02.png'}
@@ -223,16 +223,16 @@ export default function MyOrderPage() {
                                                     }}
                                                 />
                                                 <div>
-                                                    <h3 className="font-semibold text-lg max-w-[600px]">
+                                                    <h3 className="font-semibold text-lg max-w-[600px] line-clamp-2">
                                                         {order.product.name}
                                                     </h3>
                                                     <p className="text-gray-600">
-                                                        {t('quantity')}: {order.quantity} × ${order.product.price}
+                                                        {t('quantity')}: <br className="sm:hidden" /> {order.quantity} × ${order.product.price}
                                                     </p>
                                                 </div>
                                             </div>
-                                            <div className="text-right">
-                                                <p className="font-bold text-xl">
+                                            <div className="text-right mt-2 sm:mt-0">
+                                                <p className="font-bold text-xl hidden sm:block">
                                                     ${(order.quantity * order.product.price).toFixed(2)}
                                                 </p>
                                                 <span
