@@ -75,7 +75,7 @@ export default function DeviceSlider({ data }: DeviceSliderProps) {
                                         </div>
                                     </div>
                                 </div>
-                                <h3 className="two-line-ellipsis text-center font-heading text-xs font-bold text-gray-700 xxs:text-sm">
+                                <h3 className="line-clamp-2 text-center font-heading text-xs font-bold text-gray-700 xxs:text-sm">
                                     {title}
                                 </h3>
                                 <div className="text-center text-xs text-gray-700">{formatPrice(price, locale)}</div>

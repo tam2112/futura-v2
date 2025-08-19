@@ -12,7 +12,7 @@ export const promotionSchema = (locale: 'en' | 'vi') => {
         .object({
             id: z.string().optional(),
             name: z.string().min(1, t.promotionNameRequired),
-            percentageNumber: z.number().min(1, t.minPercentageNumber).max(99, t.maxPercentageNumber),
+            percentageNumber: z.coerce.number().min(1, t.minPercentageNumber).max(99, t.maxPercentageNumber),
             durationType: z
                 .enum(['date', 'hours', 'minutes', 'seconds'])
                 .refine((val) => ['date', 'hours', 'minutes', 'seconds'].includes(val), {
@@ -20,13 +20,13 @@ export const promotionSchema = (locale: 'en' | 'vi') => {
                 }),
             startDate: z.string().optional(),
             endDate: z.string().optional(),
-            startHours: z.number().optional(),
-            endHours: z.number().optional(),
-            startMinutes: z.number().optional(),
-            endMinutes: z.number().optional(),
-            startSeconds: z.number().optional(),
-            endSeconds: z.number().optional(),
-            remainingTime: z.number().optional(),
+            startHours: z.coerce.number().optional(),
+            endHours: z.coerce.number().optional(),
+            startMinutes: z.coerce.number().optional(),
+            endMinutes: z.coerce.number().optional(),
+            startSeconds: z.coerce.number().optional(),
+            endSeconds: z.coerce.number().optional(),
+            remainingTime: z.coerce.number().optional(),
             productIds: z.array(z.string()).optional(),
             categoryIds: z.array(z.string()).optional(),
         })

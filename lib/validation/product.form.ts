@@ -14,7 +14,7 @@ export const productSchema = (locale: 'en' | 'vi') => {
         description: z.string().min(1, { message: t.descriptionRequired }),
         price: z.coerce.number().min(1, { message: t.priceRequired }),
         quantity: z.coerce.number().min(0, { message: t.quantityRequired }),
-        priceWithDiscount: z.number().optional(),
+        priceWithDiscount: z.coerce.number().optional(),
         slug: z.string().optional(),
         categoryId: z.string().min(1, { message: t.categoryRequired }),
         brandId: z.string().optional(),
