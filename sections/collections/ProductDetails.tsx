@@ -409,7 +409,7 @@ export default function ProductDetails({ product, relatedProducts }: ProductDeta
                                                     </div>
                                                 ) : (
                                                     <div
-                                                        className="gap-2 grid grid-cols-4"
+                                                        className="gap-2 grid sm:grid-cols-4 grid-cols-1"
                                                         id={`e2e-product-${key.toLowerCase()}`}
                                                     >
                                                         {display && (
