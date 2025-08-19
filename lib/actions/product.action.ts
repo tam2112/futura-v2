@@ -92,7 +92,7 @@ export const getProductsByCategorySlug = async (slug: string) => {
     }
 };
 
-export const getProductBySlug = async (slug: string) => {
+export const getProductBySlug = async (slug: string, userId?: string) => {
     try {
         const product = await prisma.product.findUnique({
             where: { slug },
@@ -116,14 +116,30 @@ export const getProductBySlug = async (slug: string) => {
         if (!product) {
             throw new Error('Product not found');
         }
-        return product || null;
+        let isFavourite = false;
+        if (userId) {
+            const favourite = await prisma.favourite.findFirst({
+                where: {
+                    userId,
+                    productId: product.id,
+                },
+            });
+            isFavourite = !!favourite;
+        }
+
+        return { ...product, isFavourite };
     } catch (error) {
         console.error('Error fetching product by slug:', error);
         return null;
     }
 };
 
-export const getRelatedProducts = async (categorySlug: string, excludeProductId: string, limit: number = 8) => {
+export const getRelatedProducts = async (
+    categorySlug: string,
+    excludeProductId: string,
+    limit: number = 8,
+    userId?: string,
+) => {
     try {
         const products = await prisma.product.findMany({
             where: {
@@ -147,7 +163,23 @@ export const getRelatedProducts = async (categorySlug: string, excludeProductId:
             },
             take: limit,
         });
-        return products || [];
+        const productsWithFavourite = await Promise.all(
+            products.map(async (product) => {
+                let isFavourite = false;
+                if (userId) {
+                    const favourite = await prisma.favourite.findFirst({
+                        where: {
+                            userId,
+                            productId: product.id,
+                        },
+                    });
+                    isFavourite = !!favourite;
+                }
+                return { ...product, isFavourite };
+            }),
+        );
+
+        return productsWithFavourite || [];
     } catch (error) {
         console.error('Error fetching related products:', error);
         return [];
@@ -326,6 +358,8 @@ export const toggleFavourite = async (
             },
         });
 
+        let newIsFavourite: boolean;
+
         if (existingFavourite) {
             // Remove from favorites
             await prisma.favourite.delete({
@@ -333,17 +367,13 @@ export const toggleFavourite = async (
                     id: existingFavourite.id,
                 },
             });
-            // Update product isFavourite to false
-            await prisma.product.update({
-                where: { id: data.productId },
-                data: { isFavourite: false },
-            });
+            newIsFavourite = false;
             revalidatePath('/favourite');
             return {
                 success: true,
                 error: false,
                 message: t.removedFromFavourites,
-                isFavourite: false,
+                isFavourite: newIsFavourite,
             };
         } else {
             // Add to favorites
@@ -353,17 +383,13 @@ export const toggleFavourite = async (
                     productId: data.productId,
                 },
             });
-            // Update product isFavourite to true
-            await prisma.product.update({
-                where: { id: data.productId },
-                data: { isFavourite: true },
-            });
+            newIsFavourite = true;
             revalidatePath('/favourite');
             return {
                 success: true,
                 error: false,
                 message: t.addedToFavourites,
-                isFavourite: true,
+                isFavourite: newIsFavourite,
             };
         }
     } catch (error) {
@@ -393,7 +419,7 @@ export const getUserFavourites = async (userId: string) => {
                 },
             },
         });
-        return favourites.map((fav: any) => fav.product);
+        return favourites.map((fav: any) => ({ ...fav.product, isFavourite: true }));
     } catch (error) {
         console.error('Error fetching user favourites:', error);
         return [];

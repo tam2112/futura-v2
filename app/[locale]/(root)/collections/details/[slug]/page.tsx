@@ -2,6 +2,7 @@ import ProductDetails from '@/sections/collections/ProductDetails';
 import { getProductBySlug, getRelatedProducts } from '@/lib/actions/product.action';
 import { notFound } from 'next/navigation';
 import GoToTop from '@/components/GoToTop';
+import { getUserIdFromCookie } from '@/lib/auth';
 
 interface CollectionsDetailsPageProps {
     params: Promise<{
@@ -11,8 +12,9 @@ interface CollectionsDetailsPageProps {
 
 export default async function CollectionsDetailsPage({ params }: CollectionsDetailsPageProps) {
     const { slug } = await params;
+    const userId = getUserIdFromCookie() || '';
 
-    const product = await getProductBySlug(slug);
+    const product = await getProductBySlug(slug, userId);
     if (!product || !product.category) {
         notFound();
     }
