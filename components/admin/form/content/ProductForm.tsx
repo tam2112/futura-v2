@@ -241,7 +241,7 @@ export default function ProductForm({
                     type="button"
                     onClick={() => setTab('main')}
                     className={twMerge(
-                        'bg-white px-4 py-1 rounded-lg hover:bg-gradient-lighter transition-all duration-300',
+                        'bg-white px-4 py-1 rounded-lg hover:bg-gradient-lighter transition-all duration-300 cursor-pointer',
                         tab === 'main' && 'bg-gradient-lighter font-semibold',
                     )}
                 >
@@ -251,7 +251,7 @@ export default function ProductForm({
                     type="button"
                     onClick={() => setTab('technical')}
                     className={twMerge(
-                        'bg-white px-4 py-1 rounded-lg hover:bg-gradient-lighter transition-all duration-300',
+                        'bg-white px-4 py-1 rounded-lg hover:bg-gradient-lighter transition-all duration-300 cursor-pointer',
                         tab === 'technical' && 'bg-gradient-lighter font-semibold',
                     )}
                 >

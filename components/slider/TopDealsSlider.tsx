@@ -94,7 +94,9 @@ export default function TopDealsSlider() {
                     </SwiperSlide>
                 ))}
             </Swiper>
-            <DeviceSliderBtn swiperRef={swiperRef} />
+            <div className="hidden sm:block">
+                <DeviceSliderBtn swiperRef={swiperRef} />
+            </div>
         </>
     );
 }

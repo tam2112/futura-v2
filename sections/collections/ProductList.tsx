@@ -470,7 +470,7 @@ export default function ProductList({ initialProducts, showCategoriesFilter = fa
                                                         </div>
                                                         <div className="flex flex-1 items-center justify-between">
                                                             <div className="w-full">
-                                                                <h3 className="three-line-ellipsis text-sm">{name}</h3>
+                                                                <h3 className="line-clamp-3 text-sm">{name}</h3>
                                                                 <div className="mt-3 flex items-center justify-between">
                                                                     <div className="flex flex-col justify-center">
                                                                         {priceWithDiscount && (

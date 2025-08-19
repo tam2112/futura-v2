@@ -20,6 +20,7 @@ import { useAuth } from '@/context/AuthContext';
 import { toggleFavourite } from '@/lib/actions/product.action';
 import Cookies from 'js-cookie';
 import { AnimatePresence, motion } from 'framer-motion';
+import { formatPriceInDetails } from '@/lib/utils';
 
 type Product = {
     id: string;
@@ -300,8 +301,19 @@ export default function ProductDetails({ product, relatedProducts }: ProductDeta
                                         {product.priceWithDiscount ? (
                                             <>
                                                 <div className="mb-1 flex items-center justify-end">
-                                                    <div className="text-xs text-slate-300">
-                                                        <span className="line-through">{product.price.toFixed(2)}</span>
+                                                    <div className="text-xs text-black font-light">
+                                                        <span className="line-through">
+                                                            {locale === 'en' ? '$' : ''}
+                                                            {formatPriceInDetails(product.price, locale).integerPart}
+                                                            <sup style={{ top: '-0.4em' }}>
+                                                                .
+                                                                {
+                                                                    formatPriceInDetails(product.price, locale)
+                                                                        .fractionalPart
+                                                                }
+                                                                {locale === 'vi' ? 'đ' : ''}
+                                                            </sup>
+                                                        </span>
                                                     </div>
                                                     <div className="absolute right-[-39px] top-6 ml-2 hidden w-[40px] rounded-r-full bg-rose-600 pr-2 leading-3 lg:block">
                                                         <span className="flex items-center justify-center p-1 px-1.5 text-center text-xs font-bold text-white lg:p-1.5">
@@ -311,9 +323,18 @@ export default function ProductDetails({ product, relatedProducts }: ProductDeta
                                                 </div>
                                                 <div className="flex items-center justify-end">
                                                     <h2 className="block text-xl font-bold leading-tight text-gray-700">
-                                                        ${Math.floor(product.priceWithDiscount)}
+                                                        {locale === 'en' ? '$' : ''}
+                                                        {
+                                                            formatPriceInDetails(product.priceWithDiscount, locale)
+                                                                .integerPart
+                                                        }
                                                         <sup style={{ top: '-0.4em' }}>
-                                                            .{(product.priceWithDiscount % 1).toFixed(2).slice(2)}
+                                                            .
+                                                            {
+                                                                formatPriceInDetails(product.priceWithDiscount, locale)
+                                                                    .fractionalPart
+                                                            }
+                                                            {locale === 'vi' ? 'đ' : ''}
                                                         </sup>
                                                     </h2>
                                                 </div>
@@ -321,15 +342,17 @@ export default function ProductDetails({ product, relatedProducts }: ProductDeta
                                         ) : (
                                             <div className="flex items-center justify-end">
                                                 <h2 className="block text-xl font-bold leading-tight text-gray-700">
-                                                    ${Math.floor(product.price)}
+                                                    {locale === 'en' ? '$' : ''}
+                                                    {formatPriceInDetails(product.price, locale).integerPart}
                                                     <sup style={{ top: '-0.4em' }}>
-                                                        .{(product.price % 1).toFixed(2).slice(2)}
+                                                        .{formatPriceInDetails(product.price, locale).fractionalPart}
+                                                        {locale === 'vi' ? 'đ' : ''}
                                                     </sup>
                                                 </h2>
                                             </div>
                                         )}
                                     </div>
-                                    <div className="w-full items-center gap-3 flex">
+                                    <div className="w-full items-center gap-3 flex mt-2">
                                         <div className="grid flex-1 grid-cols-1 gap-1.5 py-0.5">
                                             <button
                                                 onClick={() => handleAddToCart(product.id)}
@@ -391,7 +414,7 @@ export default function ProductDetails({ product, relatedProducts }: ProductDeta
                                                     >
                                                         {display && (
                                                             <div>
-                                                                <div className="h-full w-full flex items-center justify-center leading-3 py-3 bg-white text-center text-xs border border-gray-700 rounded font-bold">
+                                                                <div className="h-full w-full flex items-center justify-center leading-5 py-3 bg-white text-center text-xs border border-gray-700 rounded font-bold">
                                                                     {typeof display === 'string'
                                                                         ? display
                                                                         : (product as any)[key.toLowerCase()]?.name ||
@@ -456,12 +479,20 @@ export default function ProductDetails({ product, relatedProducts }: ProductDeta
                                                         />
                                                     </div>
                                                 </div>
-                                                <h3 className="text-center text-xs font-semibold text-gray-700 xxs:text-sm two-line-ellipsis">
+                                                <h3 className="text-center text-xs font-semibold text-gray-700 xxs:text-sm line-clamp-2">
                                                     {relatedProduct.name}
                                                 </h3>
                                                 <div className="text-center text-xs text-gray-700">
-                                                    ${Math.floor(relatedProduct.price)}
-                                                    <sup>.{(relatedProduct.price % 1).toFixed(2).slice(2)}</sup>
+                                                    {locale === 'en' ? '$' : ''}
+                                                    {formatPriceInDetails(relatedProduct.price, locale).integerPart}
+                                                    <sup style={{ top: '-0.4em' }}>
+                                                        .
+                                                        {
+                                                            formatPriceInDetails(relatedProduct.price, locale)
+                                                                .fractionalPart
+                                                        }
+                                                        {locale === 'vi' ? 'đ' : ''}
+                                                    </sup>
                                                 </div>
                                             </div>
                                         </div>
