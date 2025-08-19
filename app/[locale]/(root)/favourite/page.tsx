@@ -205,7 +205,7 @@ export default function FavouritePage() {
                                         </Link>
                                         <button
                                             onClick={() => handleToggleFavourite(product.id)}
-                                            className="absolute top-1 right-1 px-3 py-2 rounded-lg border border-black hover:bg-gradient-light"
+                                            className="absolute top-1 right-1 px-3 py-2 rounded-lg border border-black hover:bg-gradient-light cursor-pointer"
                                         >
                                             <HiOutlineXMark size={20} />
                                         </button>
