@@ -239,7 +239,7 @@ export default function CategoryModal({ isOpen, setIsOpen }: CategoryModalType) 
                                 ) : null}
                             </div>
                         </div>
-                        {/* Trending */}
+                        {/* Trending Categories */}
                         <div className="mt-4">
                             <h3 className="font-semibold font-heading mb-1 lg:text-base md:text-lg text-xl">
                                 {t('trending')}
@@ -271,7 +271,7 @@ export default function CategoryModal({ isOpen, setIsOpen }: CategoryModalType) 
                                 {categories.slice(0, showAllCategories ? categories.length : 5).map((cat: any) => (
                                     <li key={cat.id} onClick={(e) => e.stopPropagation()}>
                                         <Link
-                                            href={`collections/list/${cat.slug}`}
+                                            href={`/collections/list/${cat.slug}`}
                                             className="text-black py-1.5 group/nav-item relative isolate cursor-pointer block"
                                         >
                                             <div className="relative isolate">
