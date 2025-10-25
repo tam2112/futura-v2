@@ -24,6 +24,18 @@ const spaceGroteskFont = Space_Grotesk({
 export const metadata: Metadata = {
     title: 'Futuristic E-commerce 🛍️',
     description: 'Graduation project is made by Robert',
+    openGraph: {
+        title: 'Futuristic E-commerce 🛍️',
+        description: 'Graduation project is made by Robert',
+        images: [
+            {
+                url: 'https://images.unsplash.com/photo-1674027392887-751d6396b710?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1632',
+                width: 1632,
+                height: 1088,
+                alt: 'Image',
+            },
+        ],
+    },
 };
 
 export default async function RootLayout({
