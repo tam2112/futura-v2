@@ -10,6 +10,7 @@ type TextareaFieldProps<T extends FieldValues> = {
     defaultValue?: T[Path<T>];
     error?: FieldError;
     className?: string;
+    onKeyDown?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
     textareaProps?: React.TextareaHTMLAttributes<HTMLTextAreaElement>;
 };
 
@@ -20,6 +21,7 @@ export default function TextareaField<T extends FieldValues>({
     defaultValue,
     error,
     className,
+    onKeyDown,
     textareaProps,
 }: TextareaFieldProps<T>) {
     return (
@@ -32,6 +34,7 @@ export default function TextareaField<T extends FieldValues>({
                     className={twMerge('px-4 py-2 w-full min-h-[100px] rounded-lg outline-none resize-y', className)}
                     defaultValue={defaultValue}
                     {...textareaProps}
+                    onKeyDown={onKeyDown}
                 />
             </div>
             {error?.message && <p className="text-xs text-red-400 max-w-[300px]">{error.message.toString()}</p>}

@@ -16,6 +16,7 @@ import { PiEyeClosedLight, PiEyeLight } from 'react-icons/pi';
 import heroImg from '@/public/log-hero-v3.png';
 import { useAuth } from '@/context/AuthContext';
 import { useLocale, useTranslations } from 'next-intl';
+import { LoaderCircle } from 'lucide-react';
 
 export default function SignInForm() {
     const t = useTranslations('SignInPage');
@@ -34,12 +35,12 @@ export default function SignInForm() {
     const router = useRouter();
     const currentLocale = useLocale();
 
-    const [touchedFields, setTouchedFields] = useState<Record<string, boolean>>({});
     const [state] = useState({
         success: false,
         error: false,
         message: '',
     });
+    const [loading, setLoading] = useState(false);
 
     // show and hide input type password
     const [showPassword, setShowPassword] = useState(false);
@@ -47,6 +48,7 @@ export default function SignInForm() {
     const { setIsLoggedIn } = useAuth();
 
     const onSubmit = handleSubmit(async (data) => {
+        setLoading(true);
         const response = await signInUser(state, data, locale);
 
         if (response.success) {
@@ -67,6 +69,7 @@ export default function SignInForm() {
             }
             setIsLoggedIn(true);
             toast(t('signInSuccess'));
+            setLoading(false);
 
             // Redirect based on role
             if (response.role === 'admin') {
@@ -75,31 +78,10 @@ export default function SignInForm() {
                 await router.push('/', { locale: currentLocale });
             }
         } else {
+            setLoading(false);
             toast.error(response.message || t('signInFailed'));
-            setTouchedFields({});
         }
     });
-
-    const handleFieldChange = (fieldName: string) => {
-        setTouchedFields((prev) => ({
-            ...prev,
-            [fieldName]: false,
-        }));
-    };
-
-    useEffect(() => {
-        if (Object.values(errors).length > 0) {
-            // Khi submit form, đánh dấu tất cả các trường là đã được submit
-            const updatedTouchedFields = Object.keys(errors).reduce(
-                (acc, fieldName) => ({
-                    ...acc,
-                    [fieldName]: true,
-                }),
-                touchedFields,
-            );
-            setTouchedFields(updatedTouchedFields);
-        }
-    }, [errors, touchedFields]);
 
     return (
         <div className="sm:px-16 px-8 py-10 min-h-[500px] overflow-hidden">
@@ -122,14 +104,16 @@ export default function SignInForm() {
                                         {...register('email')}
                                         placeholder={`${t('emailPlaceholder')}`}
                                         className={`px-4 pl-[52px] py-2 min-w-[320px] rounded-lg outline-none`}
-                                        onChange={() => {
-                                            handleFieldChange('email'), clearErrors('email');
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter') {
+                                                onSubmit();
+                                            }
                                         }}
                                     />
                                     <RxEnvelopeClosed className="absolute top-1/2 -translate-y-1/2 left-3" />
                                     <span className="absolute top-1/2 -translate-y-1/2 left-10 w-px h-[56%] bg-black"></span>
                                 </div>
-                                {touchedFields.email && errors.email?.message && (
+                                {errors.email?.message && (
                                     <p className="text-red-500 text-sm" style={{ maxWidth: '320px' }}>
                                         {errors.email.message}
                                     </p>
@@ -143,8 +127,10 @@ export default function SignInForm() {
                                         {...register('password')}
                                         placeholder={`${t('passwordPlaceholder')}`}
                                         className={`px-4 pl-[52px] py-2 min-w-[320px] rounded-lg outline-none`}
-                                        onChange={() => {
-                                            handleFieldChange('password'), clearErrors('password');
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter') {
+                                                onSubmit();
+                                            }
                                         }}
                                     />
                                     <div
@@ -155,7 +141,7 @@ export default function SignInForm() {
                                     </div>
                                     <span className="absolute top-1/2 -translate-y-1/2 left-10 w-px h-[56%] bg-black"></span>
                                 </div>
-                                {touchedFields.password && errors.password?.message && (
+                                {errors.password?.message && (
                                     <p className="text-red-500 text-sm" style={{ maxWidth: '320px' }}>
                                         {errors.password.message}
                                     </p>
@@ -166,9 +152,10 @@ export default function SignInForm() {
                             <div>
                                 <button
                                     type="submit"
-                                    className="bg-gradient-light w-full py-2 rounded-lg font-bold cursor-pointer"
+                                    disabled={loading}
+                                    className="bg-gradient-light w-full flex items-center justify-center py-2 rounded-lg font-bold cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
                                 >
-                                    {t('logIn')}
+                                    {t('logIn')} {loading && <LoaderCircle className="ml-1 animate-spin" />}
                                 </button>
                             </div>
                             <div className="">

@@ -327,7 +327,9 @@
         "deleteSelectFailed": "Xóa {entityName} thất bại",
         "noSelect": "Vui lòng chọn ít nhất 1 {entityName} để xóa",
         "deleteSelectTooltip": "Xóa chọn",
-        "deleteSelectConfirm": "Tất cả dữ liệu sẽ bị mất. Bạn có chắc bạn muốn xóa {entityName} đã chọn không?"
+        "deleteSelectConfirm": "Tất cả dữ liệu sẽ bị mất. Bạn có chắc bạn muốn xóa {entityName} đã chọn không?",
+        "cancel": "Hủy",
+        "confirm": "Xác nhận"
     },
     "ExportInAdmin": {
         "exportToExcel": "Xuất ra Excel",

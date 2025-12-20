@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useFormState } from 'react-dom';
 import { useRouter } from 'next/navigation';
@@ -119,13 +119,20 @@ export default function PromotionForm({
 
     const router = useRouter();
 
+    const hasShownToast = useRef(false);
+
     useEffect(() => {
-        if (state.success) {
+        if (state.success && !hasShownToast.current) {
             toast(t('createSuccess', { type: type === 'create' ? t('created') : t('updated') }));
+            hasShownToast.current = true;
+
             setOpen(false);
             router.refresh();
-        } else if (state.error) {
+        }
+
+        if (state.error && state.message && !hasShownToast.current) {
             toast.error(state.message);
+            hasShownToast.current = true;
         }
     }, [state, type, router, setOpen, t]);
 
@@ -353,6 +360,11 @@ export default function PromotionForm({
                                         onChange={() => handleOptionChange('product')}
                                         disabled={type === 'update'}
                                         className="w-4 h-4 bg-gray-100 border-gray-300"
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter') {
+                                                onSubmit();
+                                            }
+                                        }}
                                     />
                                     <label
                                         htmlFor="productOption"
@@ -373,6 +385,11 @@ export default function PromotionForm({
                                         onChange={() => handleOptionChange('category')}
                                         disabled={type === 'update'}
                                         className="w-4 h-4 bg-gray-100 border-gray-300"
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter') {
+                                                onSubmit();
+                                            }
+                                        }}
                                     />
                                     <label
                                         htmlFor="categoryOption"
@@ -411,7 +428,7 @@ export default function PromotionForm({
                 </div>
             )}
 
-            <button className="bg-gradient-light p-2 rounded-md cursor-pointer">
+            <button type="submit" className="bg-gradient-light p-2 rounded-md cursor-pointer">
                 {type === 'create' ? t('create') : t('update')}
             </button>
         </form>

@@ -327,7 +327,9 @@
         "deleteSelectFailed": "Failed to delete {entityName}",
         "noSelect": "Please select at least one {entityName} to delete.",
         "deleteSelectTooltip": "Delete selected",
-        "deleteSelectConfirm": "All data will be lost. Are you sure you want to delete selected {entityName}?"
+        "deleteSelectConfirm": "All data will be lost. Are you sure you want to delete selected {entityName}?",
+        "cancel": "Cancel",
+        "confirm": "Confirm"
     },
     "ExportInAdmin": {
         "exportToExcel": "Export to Excel",

@@ -182,6 +182,10 @@
         --color-border: theme('colors.gray.200/20%');
     }
 
+    button {
+        @apply cursor-pointer;
+    }
+
     /* .border-gradient {
         @apply border-[3px] border-transparent [background:linear-gradient(var(--color-white),var(--color-white))_padding-box,conic-gradient(from_45deg,var(--color-violet-500),var(--color-fuchsia-500),var(--color-amber-400),var(--color-teal-400),var(--color-violet-500))_border-box];
     }

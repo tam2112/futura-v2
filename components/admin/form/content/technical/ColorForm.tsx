@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { useFormState } from 'react-dom';
@@ -55,13 +55,20 @@ export default function ColorForm({
 
     const router = useRouter();
 
+    const hasShownToast = useRef(false);
+
     useEffect(() => {
-        if (state.success) {
+        if (state.success && !hasShownToast.current) {
             toast(t('createSuccess', { type: type === 'create' ? t('created') : t('updated') }));
+            hasShownToast.current = true;
+
             setOpen(false);
             router.refresh();
-        } else {
+        }
+
+        if (state.error && state.message && !hasShownToast.current) {
             toast.error(state.message);
+            hasShownToast.current = true;
         }
     }, [state, type, router, setOpen, t]);
 
@@ -100,7 +107,7 @@ export default function ColorForm({
                 )}
             </div>
 
-            <button className="bg-gradient-light p-2 rounded-md cursor-pointer">
+            <button type="submit" className="bg-gradient-light p-2 rounded-md cursor-pointer">
                 {type === 'create' ? t('create') : t('update')}
             </button>
         </form>

@@ -18,6 +18,7 @@ type InputFieldProps<T extends FieldValues> = {
     error?: FieldError;
     hidden?: boolean;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
     className?: string;
     inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
     formType?: 'create' | 'update';
@@ -37,6 +38,7 @@ export default function InputField<T extends FieldValues>({
     hidden,
     hideIcon,
     onChange,
+    onKeyDown,
     className,
     inputProps,
     formType,
@@ -50,12 +52,20 @@ export default function InputField<T extends FieldValues>({
         formType === 'create' ? '' : typeof defaultValue === 'string' ? defaultValue : undefined,
     );
 
-    // Handle input change for hex field
-    const handleHexChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Lấy các props từ register ra trước
+    const { onChange: rhfOnChange } = register(name);
+
+    const handleCombinedChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        // 1. Gọi hàm của React Hook Form để cập nhật state của form
+        rhfOnChange(e);
+
+        // 2. Gọi hàm xử lý hex của bạn nếu cần
         if (name === 'hex' && formType === 'create') {
             setHexValue(e.target.value);
         }
-        onChange?.(e); // Call the original onChange if provided
+
+        // 3. Gọi hàm onChange từ props nếu có truyền vào
+        onChange?.(e);
     };
 
     return (
@@ -71,6 +81,7 @@ export default function InputField<T extends FieldValues>({
                                 !hideIcon && 'pl-[52px]'
                             } py-2 min-w-[320px] rounded-lg outline-none ${className}`}
                             onChange={onChange}
+                            onKeyDown={onKeyDown}
                             {...inputProps}
                             defaultValue={defaultValue}
                             placeholder={`${t('placeholder')} ${label}`}
@@ -102,7 +113,8 @@ export default function InputField<T extends FieldValues>({
                             className={`px-4 ${
                                 !hideIcon || name === 'hex' ? 'pl-[52px]' : ''
                             } py-2 min-w-[320px] rounded-lg outline-none ${className}`}
-                            onChange={handleHexChange}
+                            onChange={handleCombinedChange}
+                            onKeyDown={onKeyDown}
                             defaultValue={defaultValue}
                             {...inputProps}
                         />

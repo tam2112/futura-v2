@@ -39,7 +39,6 @@ export default function RecoverForm() {
 
     const [step, setStep] = useState<'email' | 'code' | 'password'>('email');
     const [userId, setUserId] = useState<string | null>(null);
-    const [touchedFields, setTouchedFields] = useState<Record<string, boolean>>({});
     const [state] = useState({
         success: false,
         error: false,
@@ -58,7 +57,6 @@ export default function RecoverForm() {
                 toast.success(response.message || t('codeSent'));
             } else {
                 toast.error(response.message || t('recoveryFailed'));
-                setTouchedFields({});
             }
         } else if (step === 'code' && userId) {
             const response = await verifyRecoveryCode(state, {
@@ -71,7 +69,6 @@ export default function RecoverForm() {
                 toast.success(response.message || t('codeVerified'));
             } else {
                 toast.error(response.message || t('invalidOrExpiredCode'));
-                setTouchedFields({});
             }
         } else if (step === 'password' && userId) {
             const response = await completePasswordRecovery(state, { ...data, userId, locale });
@@ -80,30 +77,9 @@ export default function RecoverForm() {
                 await router.push('/sign-in', { locale: currentLocale });
             } else {
                 toast.error(response.message || t('recoveryFailed'));
-                setTouchedFields({});
             }
         }
     });
-
-    const handleFieldChange = (fieldName: string) => {
-        setTouchedFields((prev) => ({
-            ...prev,
-            [fieldName]: false,
-        }));
-    };
-
-    useEffect(() => {
-        if (Object.values(errors).length > 0) {
-            const updatedTouchedFields = Object.keys(errors).reduce(
-                (acc, fieldName) => ({
-                    ...acc,
-                    [fieldName]: true,
-                }),
-                touchedFields,
-            );
-            setTouchedFields(updatedTouchedFields);
-        }
-    }, [errors, touchedFields]);
 
     return (
         <div className="px-16 py-10 min-h-[500px] overflow-hidden">
@@ -130,15 +106,16 @@ export default function RecoverForm() {
                                             step !== 'email' ? 'bg-gray-200 cursor-not-allowed' : ''
                                         }`}
                                         disabled={step !== 'email'}
-                                        onChange={() => {
-                                            handleFieldChange('email');
-                                            clearErrors('email');
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter') {
+                                                onSubmit();
+                                            }
                                         }}
                                     />
                                     <RxEnvelopeClosed className="absolute top-1/2 -translate-y-1/2 left-3" />
                                     <span className="absolute top-1/2 -translate-y-1/2 left-10 w-px h-[56%] bg-black"></span>
                                 </div>
-                                {touchedFields.email && errors.email?.message && (
+                                {errors.email?.message && (
                                     <p className="text-red-500 text-sm" style={{ maxWidth: '320px' }}>
                                         {errors.email.message}
                                     </p>
@@ -155,15 +132,16 @@ export default function RecoverForm() {
                                             {...register('verificationCode')}
                                             placeholder={t('codePlaceholder')}
                                             className="px-4 pl-[52px] py-2 min-w-[320px] rounded-lg outline-none"
-                                            onChange={() => {
-                                                handleFieldChange('verificationCode');
-                                                clearErrors('verificationCode');
+                                            onKeyDown={(e) => {
+                                                if (e.key === 'Enter') {
+                                                    onSubmit();
+                                                }
                                             }}
                                         />
                                         <RxEnvelopeClosed className="absolute top-1/2 -translate-y-1/2 left-3" />
                                         <span className="absolute top-1/2 -translate-y-1/2 left-10 w-px h-[56%] bg-black"></span>
                                     </div>
-                                    {touchedFields.verificationCode && errors.verificationCode?.message && (
+                                    {errors.verificationCode?.message && (
                                         <p className="text-red-500 text-sm" style={{ maxWidth: '320px' }}>
                                             {errors.verificationCode.message}
                                         </p>
@@ -182,9 +160,10 @@ export default function RecoverForm() {
                                                 {...register('newPassword')}
                                                 placeholder={t('passwordPlaceholder')}
                                                 className="px-4 pl-[52px] py-2 min-w-[320px] rounded-lg outline-none"
-                                                onChange={() => {
-                                                    handleFieldChange('newPassword');
-                                                    clearErrors('newPassword');
+                                                onKeyDown={(e) => {
+                                                    if (e.key === 'Enter') {
+                                                        onSubmit();
+                                                    }
                                                 }}
                                             />
                                             <div
@@ -195,7 +174,7 @@ export default function RecoverForm() {
                                             </div>
                                             <span className="absolute top-1/2 -translate-y-1/2 left-10 w-px h-[56%] bg-black"></span>
                                         </div>
-                                        {touchedFields.newPassword && errors.newPassword?.message && (
+                                        {errors.newPassword?.message && (
                                             <p className="text-red-500 text-sm" style={{ maxWidth: '320px' }}>
                                                 {errors.newPassword.message}
                                             </p>
@@ -209,9 +188,10 @@ export default function RecoverForm() {
                                                 {...register('confirmNewPassword')}
                                                 placeholder={t('confirmPasswordPlaceholder')}
                                                 className="px-4 pl-[52px] py-2 min-w-[320px] rounded-lg outline-none"
-                                                onChange={() => {
-                                                    handleFieldChange('confirmNewPassword');
-                                                    clearErrors('confirmNewPassword');
+                                                onKeyDown={(e) => {
+                                                    if (e.key === 'Enter') {
+                                                        onSubmit();
+                                                    }
                                                 }}
                                             />
                                             <div
@@ -222,7 +202,7 @@ export default function RecoverForm() {
                                             </div>
                                             <span className="absolute top-1/2 -translate-y-1/2 left-10 w-px h-[56%] bg-black"></span>
                                         </div>
-                                        {touchedFields.confirmNewPassword && errors.confirmNewPassword?.message && (
+                                        {errors.confirmNewPassword?.message && (
                                             <p className="text-red-500 text-sm" style={{ maxWidth: '320px' }}>
                                                 {errors.confirmNewPassword.message}
                                             </p>

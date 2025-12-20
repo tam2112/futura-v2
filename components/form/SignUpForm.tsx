@@ -6,7 +6,7 @@ import { signUpSchema, SignUpSchema } from '@/lib/validation/user.form';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useFormState } from 'react-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import { signUpUser } from '@/lib/actions/user.action';
 import { toast } from 'react-toastify';
 
@@ -17,6 +17,7 @@ import { PiEyeClosedLight, PiEyeLight } from 'react-icons/pi';
 import heroImg from '@/public/log-hero-v3.png';
 import InputField from './InputField';
 import { useLocale, useTranslations } from 'next-intl';
+import { LoaderCircle } from 'lucide-react';
 
 export default function SignUpForm() {
     const t = useTranslations('SignUpPage');
@@ -35,38 +36,18 @@ export default function SignUpForm() {
     const router = useRouter();
     const currentLocale = useLocale();
 
-    const [touchedFields, setTouchedFields] = useState<Record<string, boolean>>({});
-
     const [state, formAction] = useFormState(signUpUser, {
         success: false,
         error: false,
     });
+    const [isPending, startTransition] = useTransition();
 
     const onSubmit = handleSubmit((data) => {
         console.log(data);
-        formAction({ ...data });
+        startTransition(() => {
+            formAction({ ...data });
+        });
     });
-
-    const handleFieldChange = (fieldName: string) => {
-        setTouchedFields((prev) => ({
-            ...prev,
-            [fieldName]: false, // Đặt lại trạng thái lỗi cho trường này
-        }));
-    };
-
-    useEffect(() => {
-        if (Object.values(errors).length > 0) {
-            // Khi submit form, đánh dấu tất cả các trường là đã được submit
-            const updatedTouchedFields = Object.keys(errors).reduce(
-                (acc, fieldName) => ({
-                    ...acc,
-                    [fieldName]: true,
-                }),
-                touchedFields,
-            );
-            setTouchedFields(updatedTouchedFields);
-        }
-    }, [errors, touchedFields]);
 
     useEffect(() => {
         console.log('State updated:', state);
@@ -97,40 +78,35 @@ export default function SignUpForm() {
                                 label={t('fullName')}
                                 name="fullName"
                                 register={register}
-                                error={touchedFields.fullName ? errors.fullName : undefined}
+                                error={errors.fullName}
                                 icon={<TbUserEdit className="absolute top-1/2 -translate-y-1/2 left-3" />}
-                                onChange={() => {
-                                    handleFieldChange('fullName'), clearErrors('fullName');
-                                }}
                             />
                             <InputField
                                 label={t('email')}
                                 name="email"
                                 type="email"
                                 register={register}
-                                error={touchedFields.email ? errors.email : undefined}
+                                error={errors.email}
                                 icon={<RxEnvelopeClosed className="absolute top-1/2 -translate-y-1/2 left-3" />}
-                                onChange={() => {
-                                    handleFieldChange('email'), clearErrors('email');
-                                }}
                             />
                             <InputField
                                 label={t('password')}
                                 name="password"
                                 className="pr-8"
                                 register={register}
-                                error={touchedFields.password ? errors.password : undefined}
+                                error={errors.password}
                                 iconEyeOff={<PiEyeClosedLight className="absolute top-1/2 -translate-y-1/2 left-3" />}
                                 iconEyeOn={<PiEyeLight className="absolute top-1/2 -translate-y-1/2 left-3" />}
-                                onChange={() => {
-                                    handleFieldChange('password'), clearErrors('password');
-                                }}
                             />
                         </div>
                         <div className="space-y-3 mt-6">
                             <div>
-                                <button className="bg-gradient-light w-full py-2 rounded-lg font-bold cursor-pointer">
-                                    {t('createAccount')}
+                                <button
+                                    type="submit"
+                                    disabled={isPending}
+                                    className="bg-gradient-light w-full flex items-center justify-center py-2 rounded-lg font-bold cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+                                >
+                                    {t('createAccount')} {isPending && <LoaderCircle className="ml-1 animate-spin" />}
                                 </button>
                             </div>
                             <div className="">

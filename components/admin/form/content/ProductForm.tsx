@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useFormState } from 'react-dom';
 import { useRouter } from 'next/navigation';
@@ -151,13 +151,20 @@ export default function ProductForm({
 
     const router = useRouter();
 
+    const hasShownToast = useRef(false);
+
     useEffect(() => {
-        if (state.success) {
+        if (state.success && !hasShownToast.current) {
             toast(t('createSuccess', { type: type === 'create' ? t('created') : t('updated') }));
+            hasShownToast.current = true;
+
             setOpen(false);
             router.refresh();
-        } else {
+        }
+
+        if (state.error && state.message && !hasShownToast.current) {
             toast.error(state.message);
+            hasShownToast.current = true;
         }
     }, [state, type, router, setOpen, t]);
 
@@ -310,6 +317,11 @@ export default function ProductForm({
                             name="description"
                             register={register}
                             error={errors.description}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                    onSubmit();
+                                }
+                            }}
                         />
                     </div>
                     <div>
@@ -418,7 +430,7 @@ export default function ProductForm({
                 </div>
             )}
 
-            <button className="bg-gradient-light p-2 rounded-md cursor-pointer">
+            <button type="submit" className="bg-gradient-light p-2 rounded-md cursor-pointer">
                 {type === 'create' ? t('create') : t('update')}
             </button>
         </form>

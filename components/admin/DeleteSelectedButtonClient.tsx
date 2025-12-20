@@ -96,9 +96,11 @@ export default function DeleteSelectedButtonClient({ deleteAction, entityName }:
 
             {/* Modal xác nhận */}
             {isModalOpen && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+                <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
                     <div className="bg-white p-6 rounded-md shadow-lg max-w-2xl w-full">
-                        <p className="font-heading text-lg text-center font-medium">{t('deleteSelectConfirm')}</p>
+                        <p className="font-heading text-lg text-center font-medium">
+                            {t('deleteSelectConfirm', { entityName: entityName })}
+                        </p>
                         <div className="flex justify-center mt-8 gap-4">
                             <button
                                 type="button"
