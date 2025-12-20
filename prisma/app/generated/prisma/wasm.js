@@ -300,6 +300,14 @@ exports.Prisma.DeliveryScalarFieldEnum = {
   orderId: 'orderId'
 };
 
+exports.Prisma.NotificationScalarFieldEnum = {
+  id: 'id',
+  orderId: 'orderId',
+  isRead: 'isRead',
+  isNew: 'isNew',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.RoleScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -344,6 +352,7 @@ exports.Prisma.ModelName = {
   Order: 'Order',
   Status: 'Status',
   Delivery: 'Delivery',
+  Notification: 'Notification',
   Role: 'Role'
 };
 

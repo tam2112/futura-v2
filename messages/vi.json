@@ -979,5 +979,11 @@
             "delivered": "Đã giao hàng",
             "cancelled": "Đã hủy"
         }
+    },
+    "Notification": {
+        "title": "Thông báo",
+        "noNotifications": "Bạn không có thông báo nào",
+        "content": "Người dùng {username} đã đặt hàng với tên sản phẩm: {productName}",
+        "updateFailed": "Cập nhật thông báo thất bại"
     }
 }

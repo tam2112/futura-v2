@@ -979,5 +979,11 @@
             "delivered": "Delivered",
             "cancelled": "Cancelled"
         }
+    },
+    "Notification": {
+        "title": "Notifications",
+        "noNotifications": "You have no notifications",
+        "content": "User {username} placed an order with product name: {productName}",
+        "updateFailed": "Failed to update notifications"
     }
 }

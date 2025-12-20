@@ -88,11 +88,11 @@ export const getUserOrders = async (userId: string) => {
 };
 
 export const createOrder = async (userId: string, deliveryInfo: DeliveryInfoSchema): Promise<OrderResponse> => {
-	console.log('createOrder called with userId:', userId, 'and deliveryInfo:', deliveryInfo);
+    console.log('createOrder called with userId:', userId, 'and deliveryInfo:', deliveryInfo);
     try {
         // Start transaction
         await prisma.$transaction(async (prisma) => {
-			console.log('Starting transaction');
+            console.log('Starting transaction');
             // 1. Get pending status
             const pendingStatus = await prisma.status.findUnique({
                 where: { name: 'Pending' },
@@ -155,6 +155,12 @@ export const createOrder = async (userId: string, deliveryInfo: DeliveryInfoSche
                     },
                 });
 
+                await prisma.notification.create({
+                    data: {
+                        orderId: order.id,
+                    },
+                });
+
                 return order;
             });
 
@@ -169,7 +175,7 @@ export const createOrder = async (userId: string, deliveryInfo: DeliveryInfoSche
             return orders;
         });
 
-		console.log('createOrder completed successfully');
+        console.log('createOrder completed successfully');
         // If we get here, the transaction was successful
         revalidatePath('/cart');
         revalidatePath('/my-orders');
